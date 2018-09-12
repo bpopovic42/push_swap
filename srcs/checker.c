@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/12 20:02:59 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/12 21:14:27 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ int		main(int ac, char **av)
 {
 	t_stack	*head;
 
-	if (!(head = malloc(sizeof(t_stack))))
+	if (!(head = stack_new(0)))
 		return (-1);
-	head->next = 0;
-	head->prev = 0;
-	head->val = 0;
 	if (ac < 2)
 		return (-1);
 	else
@@ -33,6 +30,7 @@ int		main(int ac, char **av)
 				return (-1);
 		}
 		print_stack(head);
+		del_stack(&head);
 	}
 	return (0);
 }

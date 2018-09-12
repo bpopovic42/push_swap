@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/12 20:03:15 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/12 21:14:15 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ int			init_stack(char **av, t_stack *head)
 	{
 		if (ft_isdigit(*av[i]))
 		{
-			ptr->next = malloc(sizeof(t_stack) * 1);
+			if (!(ptr->next = stack_new(ft_atoi(av[i]))))
+				return (-1);
 			ptr = ptr->next;
-			ptr->next = 0;
-			ptr->val = ft_atoi(av[i]);
 		}
 		i++;
 	}
@@ -64,4 +63,42 @@ void		print_stack(t_stack *head)
 		ft_putchar('\n');
 		stack = stack->next;
 	}
+}
+
+t_stack			*stack_new(int val)
+{
+	t_stack		*stack;
+
+	stack = 0;
+	if (!(stack = malloc(sizeof(t_stack))))
+		return (0);
+	stack->prev = 0;
+	stack->next = 0;
+	stack->val = val;
+	return (stack);
+}
+
+void			del_stack(t_stack **stack)
+{
+	t_stack		*head;
+	t_stack		*ptr;
+
+	head = *stack;
+	while (head)
+	{
+		ptr = head->next;
+		delone_stack(&head);
+		head = ptr;
+	}
+}
+
+void			delone_stack(t_stack **stack)
+{
+	t_stack		*ptr;
+
+	ptr = *stack;
+	ptr->prev = 0;
+	ptr->next = 0;
+	ptr->val = 0;
+	free(ptr);
 }
