@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/12 21:14:15 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/12 21:31:21 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			init_stack(char **av, t_stack *head)
 int			init_stack_from_file(int ac, char **av, t_stack *head)
 {
 	char	*params;
+	char	**split;
 	int		size;
 	int		fd;
 
@@ -47,7 +48,9 @@ int			init_stack_from_file(int ac, char **av, t_stack *head)
 	if ((fd = open(av[0], O_RDONLY)) < 0)
 		return (-1);
 	size = get_next_line(fd, &params);
-	if ((init_stack(ft_strsplit(params, ' '), head)))
+	if (!(split = ft_strsplit(params, ' ')))
+		return (-1);
+	if ((init_stack(split, head)))
 		return (-1);
 	return (fd);
 }
