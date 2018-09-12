@@ -30,7 +30,7 @@ CFLAGS		=	$(DEBUG) -Wall -Wextra -Werror
 
 all			:	$(NAME)
 
-$(NAME)		:	$(OBJ)
+$(NAME)		:	$(OBJ) lib
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) $(LFT) $(INC)
 	@/bin/rm -f .cmp
 
