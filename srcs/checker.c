@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/12 18:53:09 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/12 20:02:59 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ int		main(int ac, char **av)
 	{
 		if (init_stack_from_file(ac - 1, av + 1, head) < 0)
 		{
-			if (init_stack(av[1], head) < 0)
+			if (init_stack(av + 1, head) < 0)
 				return (-1);
 		}
+		print_stack(head);
 	}
 	return (0);
 }

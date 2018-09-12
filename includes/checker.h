@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/12 18:54:58 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/12 20:02:43 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct		s_stack
 */
 
 int			init_stack_from_file(int ac, char **av, t_stack *head);
-int			init_stack(char *params, t_stack *head);
+int			init_stack(char **av, t_stack *head);
+void		print_stack(t_stack *head);
 
 #endif
