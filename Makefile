@@ -2,49 +2,61 @@ NAME		=	test.out
 
 CC			=	gcc
 
-TNAME		=	unit_tests
-
-TSRCS		=	unit_tests.c
-
-OBJS		=	$(SRCS:.c=.o)
-
-SRCS		=	main.c
+SRCS		=	checker.c get_args.c
 
 LIBS		=	libft.a
 
-LDIR		=	libft
+LDIR		=	./libft
 
 LIB			=	$(addprefix $(LDIR)/, $(LIBS))
 
-IDIRS		=	includes
+IDIR		=	./includes
 
-INC			=	$(addprefix -I./$(LDIR)/, $(IDIRS))
+SDIR		=	./srcs
+
+ODIR		=	./objs
+
+LFT			=	$(addprefix -I,$(LDIR)/$(IDIR))
+
+INC			=	$(addprefix -I,$(IDIR))
+
+SRC			=	$(addprefix $(SDIR)/, $(SRCS))
+
+OBJ			=	$(addprefix $(ODIR)/, $(OBJS))
+
+OBJS		=	$(SRCS:.c=.o)
 
 CFLAGS		=	$(DEBUG) -Wall -Wextra -Werror
 
-PTF_SRC		=	$(addprefix $(LDIR)/srcs/, $(PTF_SRCS))
-
 all			:	$(NAME)
-	@echo > /dev/null
+
+$(NAME)		:	$(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) $(LFT) $(INC)
+	@/bin/rm -f .cmp
+
+$(ODIR)/%.o	:	$(SDIR)/%.c
+			@$(CMP)
+			@$(MKODIR)
+			$(CC) $(CFLAGS) -c $< -o $@ $(LFT) $(INC)
 
 lib			:
 	@$(MAKE) DEBUG=$(DEBUG) -C $(LDIR)
 
-$(NAME)		:	$(OBJS) lib
-	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) $(LIB) $(INC)
-
-test		:	$(TSRCS)
-	@$(MAKE) -C $(LDIR)
-	@$(CC) $(DEBUG) -o $(TNAME) ft_printf/srcs/* $(TSRCS) \
-		ft_printf/libftprintf.a -I./ft_printf/includes
-
 clean		:
 	@$(MAKE) clean -C $(LDIR)
+	@/bin/rm -f $(OBJ)
+	@/bin/rm -rf $(ODIR)
 
 fclean		:	clean
-	@/bin/rm -f $(LIB)
+	@$(MAKE) fclean -C $(LDIR)
 	@/bin/rm -f $(NAME)
 
 re			:	fclean all
+
+MKODIR 		=	if [ ! -d $(ODIR) ]; then \
+			/bin/mkdir -p $(ODIR); fi
+
+CMP 		=	if [ ! -e .cmp ]; then \
+				touch .cmp; fi
 
 .PHONY		: all, clean, fclean, re

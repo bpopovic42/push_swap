@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/10 18:46:04 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/09/12 18:54:58 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/includes/libft.h"
-#include "libft/includes/get_next_line.h"
-#include <fcntl.h>
-#include <unistd.h>
+#ifndef CHECKER_H
+# define CHECKER_H
 
-int		main(void)
+# include <fcntl.h>
+# include <unistd.h>
+
+typedef struct		s_stack
 {
-	char *line;
-	int fd;
-	int size;
+	struct s_stack	*prev;
+	struct s_stack	*next;
+	int				val;
+}					t_stack;
 
-	line = NULL;
-	fd = 0;
-	size = 1;
-	if ((fd = open("test.txt", O_RDONLY) <= 0))
-		return (-1);
-	while (size)
-	{
-		ft_putchar('x');
-		size = get_next_line(fd, &line);
-		ft_putstr(line);
-		ft_strdel(&line);
-	}
-	close(fd);
-	return (0);
-}
+/*
+** FUNCTIONS
+*/
+
+int			init_stack_from_file(int ac, char **av, t_stack *head);
+int			init_stack(char *params, t_stack *head);
+
+#endif
