@@ -6,7 +6,7 @@
 #    By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/03 08:42:00 by bopopovi          #+#    #+#              #
-#*   Updated: 2018/09/12 18:42:11 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2018/09/13 17:31:24 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRC_STR		=	ft_islower.c ft_isupper.c ft_isalpha.c ft_isdigit.c \
 			ft_itoa.c ft_issign.c ft_char_count.c ft_strappend.c \
 			ft_strnappend.c ft_strcinsert.c ft_wctomb.c ft_wcstombs.c \
 			ft_wcslen.c ft_strrev.c ft_wcsnlen.c ft_strchrn.c ft_ccat.c \
-			ft_strtoupper.c ft_strcasestr.c ft_strcasenequ.c
+			ft_strtoupper.c ft_strcasestr.c ft_strcasenequ.c ft_atol.c
 
 # **************************************************************************** #
 # Hash :
