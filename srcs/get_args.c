@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 18:40:25 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/13 18:53:01 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,40 @@
 #include "get_next_line.h"
 #include "limits.h"
 
-int			*init_stack(t_stack *head, int ac, char **av)
+int			init_stack(t_stack *head, int ac, char **av)
 {
 	t_stack	*ptr;
-	long	nbr;
 	int		i;
 
 	ptr = head;
 	i = 0;
-	nbr = 0;
 	while (i < ac)
 	{
-		if (ft_isdigit(*av[i]) || ft_issign(*av[i]))
-		{
-			nbr = ft_atol(av[i]);
-			if (nbr > INT_MAX || nbr < INT_MIN)
-				put_error("Integer value is off INT limits");
-			if (i)
-			{
-				if (!(ptr->next = stack_new((int)nbr)))
-					put_error("New link creation failed");
-				ptr = ptr->next;
-			}
-			else
-				ptr->val = (int)nbr;
-		}
-		else
-			put_error("Invalid integer parameter");
+		if (i + 1 < ac)
+			ptr->next = stack_new(0);
+		if ((get_next_val_if_valid(ptr, av[i])) < 0)
+			return (-1);
 		i++;
+		ptr = ptr->next;
 	}
+	return (0);
+}
+
+int			get_next_val_if_valid(t_stack *ptr, char *value)
+{
+	long	nbr;
+
+	nbr = 0;
+	if (ft_isdigit(*value) || ft_issign(*value))
+	{
+		nbr = ft_atol(value);
+		if (nbr > INT_MAX || nbr < INT_MIN)
+			put_error("Integer value is off INT limits");
+		else
+			ptr->val = (int)nbr;
+	}
+	else
+		put_error("Invalid integer parameter");
 	return (0);
 }
 
