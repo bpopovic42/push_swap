@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 20:19:12 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/13 21:06:25 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "checker.h"
 #include "get_next_line.h"
 #include "limits.h"
+
+/*
+** Initialize 1st stack by parsing program arguments
+*/
 
 int			init_stack(t_stack *head, int ac, char **av)
 {
@@ -37,6 +41,10 @@ int			init_stack(t_stack *head, int ac, char **av)
 	return (0);
 }
 
+/*
+** Assign value to ptr if it is valid
+*/
+
 int			get_next_val_if_valid(t_stack *ptr, char *value)
 {
 	long	nbr;
@@ -54,6 +62,10 @@ int			get_next_val_if_valid(t_stack *ptr, char *value)
 		put_error("Invalid integer parameter");
 	return (0);
 }
+
+/*
+** Prints value of each link in the stack until its end
+*/
 
 void		print_stack(t_stack *head)
 {
@@ -73,6 +85,11 @@ void		print_stack(t_stack *head)
 	ft_putnbr(count);
 }
 
+/*
+** Set a newly allocated stack link to value 'val'
+** Returns a pointer to the new link
+*/
+
 t_stack			*stack_new(int val)
 {
 	t_stack		*stack;
@@ -85,6 +102,10 @@ t_stack			*stack_new(int val)
 	stack->val = val;
 	return (stack);
 }
+
+/*
+** Erase and free all stack's links until its end
+*/
 
 void			del_stack(t_stack **stack)
 {
@@ -100,6 +121,10 @@ void			del_stack(t_stack **stack)
 	}
 }
 
+/*
+** Erase and frees one stack link
+*/
+
 void			delone_stack(t_stack **stack)
 {
 	t_stack		*ptr;
@@ -110,6 +135,10 @@ void			delone_stack(t_stack **stack)
 	ptr->val = 0;
 	free(ptr);
 }
+
+/*
+** Prints msg and exit with code -1
+*/
 
 void			put_error(char *msg)
 {

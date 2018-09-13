@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 20:51:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/13 20:59:37 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 #include "get_next_line.h"
 #include "checker.h"
 
-static void	adjust_input(int *ac, char ***av, int options)
+/*
+** Adjust argv in order to skip program name and potential command line options
+*/
+
+static void		adjust_input(int *ac, char ***av, int options)
 {
 	int		offset;
 
@@ -23,7 +27,11 @@ static void	adjust_input(int *ac, char ***av, int options)
 	*av += offset;
 }
 
-static int	check_argv(int ac, char **av)
+/*
+** Check argc validity depending on the existence of command line options
+*/
+
+static int	check_argc(int ac, char **av)
 {
 	if (ac < 2)
 		put_error("Invalid argument count");
@@ -42,6 +50,10 @@ static int	check_argv(int ac, char **av)
 	return (0);
 }
 
+/*
+** Set command line options flags from argv
+*/
+
 static void		get_options(int ac, char **av, int *visualizer, int *color)
 {
 	if (ac > 2)
@@ -56,6 +68,12 @@ static void		get_options(int ac, char **av, int *visualizer, int *color)
 	}
 }
 
+/*
+** Parse program input in order to initialize 1st stack and command line options
+** Prints resulting stack if no issue was encountered
+** Then frees the stack before terminating
+*/
+
 int		main(int ac, char **av)
 {
 	t_stack	*head;
@@ -65,7 +83,7 @@ int		main(int ac, char **av)
 	head = NULL;
 	visualizer = 0;
 	color = 0;
-	if ((check_argv(ac, av)) < 0)
+	if ((check_argc(ac, av)) < 0)
 		put_error("Invalid arguments");
 	else
 	{
