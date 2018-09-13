@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 16:18:01 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/13 17:07:37 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "checker.h"
 #include "get_next_line.h"
 
-t_stack			*init_stack(char **nbrs)
+t_stack			*init_stack(int ac, char **av)
 {
 	t_stack	*head;
 	t_stack	*ptr;
@@ -23,19 +23,19 @@ t_stack			*init_stack(char **nbrs)
 	head = NULL;
 	ptr = NULL;
 	i = 0;
-	while (nbrs[i])
+	while (i < ac)
 	{
-		if (ft_isdigit(*nbrs[i]))
+		if (ft_isdigit(*av[i]))
 		{
 			if (i == 0)
 			{
-				if (!(ptr = stack_new(ft_atoi(nbrs[i]))))
+				if (!(ptr = stack_new(ft_atoi(av[i]))))
 					return (NULL);
 				head = ptr;
 			}
 			else
 			{
-				if (!(ptr->next = stack_new(ft_atoi(nbrs[i]))))
+				if (!(ptr->next = stack_new(ft_atoi(av[i]))))
 					return (NULL);
 				ptr = ptr->next;
 			}
@@ -45,33 +45,6 @@ t_stack			*init_stack(char **nbrs)
 		i++;
 	}
 	return (head);
-}
-
-int				try_to_open_file(char *filename)
-{
-	int		fd;
-
-	fd = 0;
-	if (!filename || !*filename)
-		return (-1);
-	if ((fd = open(filename, O_RDONLY)) < 0)
-		return (-1);
-	else
-		return (fd);
-}
-
-char			**read_nbrs_from_file(int fd)
-{
-	char	*line;
-	char	**split;
-	int		size;
-
-	line = NULL;
-	if ((size = get_next_line(fd, &line)) < 0)
-		return (NULL);
-	if (!(split = ft_strsplit(line, ' ')))
-		return (NULL);
-	return (split);
 }
 
 void		print_stack(t_stack *head)
