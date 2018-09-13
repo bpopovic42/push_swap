@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 18:53:01 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/13 20:19:12 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int			init_stack(t_stack *head, int ac, char **av)
 	while (i < ac)
 	{
 		if (i + 1 < ac)
+		{
 			ptr->next = stack_new(0);
+			ptr->next->prev = ptr;
+		}
 		if ((get_next_val_if_valid(ptr, av[i])) < 0)
 			return (-1);
 		i++;
@@ -39,7 +42,7 @@ int			get_next_val_if_valid(t_stack *ptr, char *value)
 	long	nbr;
 
 	nbr = 0;
-	if (ft_isdigit(*value) || ft_issign(*value))
+	if (ft_isdigit(*value) || (ft_issign(*value) && ft_isdigit(*(value + 1))))
 	{
 		nbr = ft_atol(value);
 		if (nbr > INT_MAX || nbr < INT_MIN)
