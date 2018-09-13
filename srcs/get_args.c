@@ -6,58 +6,63 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 17:07:37 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/13 18:40:25 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "checker.h"
 #include "get_next_line.h"
+#include "limits.h"
 
-t_stack			*init_stack(int ac, char **av)
+int			*init_stack(t_stack *head, int ac, char **av)
 {
-	t_stack	*head;
 	t_stack	*ptr;
+	long	nbr;
 	int		i;
 
-	head = NULL;
-	ptr = NULL;
+	ptr = head;
 	i = 0;
+	nbr = 0;
 	while (i < ac)
 	{
-		if (ft_isdigit(*av[i]))
+		if (ft_isdigit(*av[i]) || ft_issign(*av[i]))
 		{
-			if (i == 0)
+			nbr = ft_atol(av[i]);
+			if (nbr > INT_MAX || nbr < INT_MIN)
+				put_error("Integer value is off INT limits");
+			if (i)
 			{
-				if (!(ptr = stack_new(ft_atoi(av[i]))))
-					return (NULL);
-				head = ptr;
-			}
-			else
-			{
-				if (!(ptr->next = stack_new(ft_atoi(av[i]))))
-					return (NULL);
+				if (!(ptr->next = stack_new((int)nbr)))
+					put_error("New link creation failed");
 				ptr = ptr->next;
 			}
+			else
+				ptr->val = (int)nbr;
 		}
 		else
-			return (NULL);
+			put_error("Invalid integer parameter");
 		i++;
 	}
-	return (head);
+	return (0);
 }
 
 void		print_stack(t_stack *head)
 {
 	t_stack		*stack;
+	int			count;
 
 	stack = head;
+	count = 0;
 	while (stack)
 	{
 		ft_putnbr(stack->val);
 		ft_putchar('\n');
 		stack = stack->next;
+		count++;
 	}
+	ft_putstr("Stack size = ");
+	ft_putnbr(count);
 }
 
 t_stack			*stack_new(int val)
@@ -96,4 +101,11 @@ void			delone_stack(t_stack **stack)
 	ptr->next = 0;
 	ptr->val = 0;
 	free(ptr);
+}
+
+void			put_error(char *msg)
+{
+	if (msg)
+		ft_putstr(msg);
+	exit(-1);
 }
