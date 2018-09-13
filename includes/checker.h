@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/12 21:14:13 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/13 16:13:02 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ typedef struct		s_stack
 ** FUNCTIONS
 */
 
-int			init_stack_from_file(int ac, char **av, t_stack *head);
-int			init_stack(char **av, t_stack *head);
+t_stack		*init_stack(char **nbrs);
 void		print_stack(t_stack *head);
 t_stack		*stack_new(int val);
 void		del_stack(t_stack **stack);
 void		delone_stack(t_stack **stack);
+int			try_to_open_file(char *filename);
+char		**read_nbrs_from_file(int fd);
 
 #endif
