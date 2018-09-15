@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 18:46:39 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/15 19:16:43 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ int			is_only_digits(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_issign(str[i]) && i != 0)
-			return (0);
-		else if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && !(ft_issign(str[i]) && i == 0))
 			return (0);
 		i++;
 	}
