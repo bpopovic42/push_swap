@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 19:19:12 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/15 23:33:42 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 ** Adjust argv in order to skip program name and potential command line options
 */
 
-static void		adjust_input(int *ac, char ***av, int options)
+static int		get_av_offset(t_flags *flags)
 {
 	int		offset;
 
-	offset = 1 + options;
-	*ac -= offset;
-	*av += offset;
+	offset = 1;
+	offset += flags->visualizer ? 1 : 0;
+	offset += flags->color ? 1 : 0;
+	return (offset);
 }
 
 /*
@@ -54,17 +55,17 @@ static int	check_argc(int ac, char **av)
 ** Set command line options flags from argv
 */
 
-static void		get_options(int ac, char **av, int *visualizer, int *color)
+static void		get_options(int ac, char **av, t_flags *flags)
 {
 	if (ac > 2)
 	{
-		*visualizer = (!(ft_strcmp(av[1], "-v")) || !(ft_strcmp(av[2], "-v")));
-		*color = (!ft_strcmp(av[1], "-c") || !ft_strcmp(av[2], "-c"));
+		flags->visualizer = (!(ft_strcmp(av[1], "-v")) || !(ft_strcmp(av[2], "-v")));
+		flags->color = (!ft_strcmp(av[1], "-c") || !ft_strcmp(av[2], "-c"));
 	}
 	else if (ac == 2)
 	{
-		*visualizer = (!ft_strcmp(av[1], "-v"));
-		*color = (!ft_strcmp(av[1], "-c"));
+		flags->visualizer = (!ft_strcmp(av[1], "-v"));
+		flags->color = (!ft_strcmp(av[1], "-c"));
 	}
 }
 
@@ -76,25 +77,25 @@ static void		get_options(int ac, char **av, int *visualizer, int *color)
 
 int		main(int ac, char **av)
 {
-	t_stack	*head;
-	int		visualizer;
-	int		color;
+	t_stack	*head_a;
+	t_stack	*head_b;
+	t_flags	flags;
+	int		av_offset;
 
-	head = NULL;
-	visualizer = 0;
-	color = 0;
+	head_a = NULL;
+	head_b = NULL;
 	if ((check_argc(ac, av)) < 0)
 		put_error("Invalid arguments");
 	else
 	{
-		get_options(ac, av, &visualizer, &color);
-		adjust_input(&ac, &av, visualizer + color);
-		if (!(head = stack_new(0)))
+		get_options(ac, av, &flags);
+		av_offset = get_av_offset(&flags);
+		if (!(head_a = stack_new(0)))
 			put_error("Failed to allocate stack head");
-		if ((init_stack(head, ac, av)) < 0)
+		if ((init_stack(head_a, ac - av_offset, av + av_offset)) < 0)
 			put_error("Failed to initialize stack");
-		print_stack(head);
-		del_stack(&head);
+		print_stack(head_a);
+		del_stack(&head_a);
 	}
 	return (0);
 }

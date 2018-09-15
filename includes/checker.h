@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 18:45:17 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/15 23:23:09 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <fcntl.h>
 # include <unistd.h>
+
+typedef struct		s_flags
+{
+	bool			visualizer;
+	bool			color;
+}					t_flags;
 
 typedef struct		s_stack
 {
