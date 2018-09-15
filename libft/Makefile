@@ -6,7 +6,7 @@
 #    By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/03 08:42:00 by bopopovi          #+#    #+#              #
-#*   Updated: 2018/09/13 17:31:24 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2018/09/16 00:24:13 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,6 +121,7 @@ $(NAME)		:	$(OBJ)
 			@ar rcs $(NAME) $(OBJ)
 			@$(CLR)
 			@echo $(UP) $(CUT) $(UP)
+			@if [ "$(DEBUG)" == "-g" ]; then echo $(UP) $(CUT) $(UP); fi;
 			@/bin/rm -f .cmp
 			@echo $(G)[$(B)LIBFT $(G)COMPILED]$(X)
 
@@ -180,4 +181,6 @@ MKODIR		=	if [ ! -d $(ODIR) ]; then \
 
 CMP			=	if [ ! -e .cmp ]; then \
 			echo $(Y)Compiling $(X)the $(B)Libft $(X)files...$(Y); \
+			if [ "$(DEBUG)" == "-g" ]; then \
+			echo \($(R)Debugging $(G)activated$(Y)\); fi; \
 			touch .cmp; fi
