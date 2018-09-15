@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_args.c                                         :+:      :+:    :+:   */
+/*   stack_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/12 16:49:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 19:16:43 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/09/15 23:06:40 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/09/15 23:07:59 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "checker.h"
-#include "get_next_line.h"
-#include "limits.h"
+#include "libft.h"
 
 /*
 ** Initialize 1st stack by parsing program arguments
@@ -39,71 +37,6 @@ int			init_stack(t_stack *head, int ac, char **av)
 		ptr = ptr->next;
 	}
 	return (0);
-}
-
-/*
-** Assign value to ptr if it is valid
-*/
-
-int			get_next_val_if_valid(t_stack *ptr, char *value)
-{
-	long	nbr;
-
-	nbr = 0;
-	if (ft_isdigit(*value) || (ft_issign(*value) && ft_isdigit(*(value + 1))))
-	{
-		if (!is_only_digits(value))
-			put_error("Invalid integer parameter");
-		nbr = ft_atol(value);
-		if (nbr > INT_MAX || nbr < INT_MIN)
-			put_error("Integer value is off INT limits");
-		else
-			ptr->val = (int)nbr;
-	}
-	else
-		put_error("Invalid integer parameter");
-	return (0);
-}
-
-/*
-** Check if str is a correctly formated number representation
-** Returns 1 if so, 0 otherwise
-*/
-
-int			is_only_digits(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]) && !(ft_issign(str[i]) && i == 0))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-/*
-** Prints value of each link in the stack until its end
-*/
-
-void		print_stack(t_stack *head)
-{
-	t_stack		*stack;
-	int			count;
-
-	stack = head;
-	count = 0;
-	while (stack)
-	{
-		ft_putnbr(stack->val);
-		ft_putchar('\n');
-		stack = stack->next;
-		count++;
-	}
-	ft_putstr("Stack size = ");
-	ft_putnbr(count);
 }
 
 /*
@@ -155,15 +88,4 @@ void			delone_stack(t_stack **stack)
 	ptr->next = 0;
 	ptr->val = 0;
 	free(ptr);
-}
-
-/*
-** Prints msg and exit with code -1
-*/
-
-void			put_error(char *msg)
-{
-	if (msg)
-		ft_putstr(msg);
-	exit(-1);
 }

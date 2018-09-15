@@ -2,7 +2,7 @@ NAME		=	test.out
 
 CC			=	gcc
 
-SRCS		=	checker.c get_args.c
+SRCS		=	checker.c display.c error.c parsing_tools.c stack_tools.c
 
 LIBS		=	libft.a
 
