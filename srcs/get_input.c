@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 01:24:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/16 01:35:13 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/16 01:47:00 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ static int		get_av_offset(t_flags *flags)
 	int		offset;
 
 	offset = 1;
-	offset += flags->visualizer ? 1 : 0;
-	offset += flags->color ? 1 : 0;
+	if (flags)
+	{
+		offset += flags->visualizer ? 1 : 0;
+		offset += flags->color ? 1 : 0;
+	}
 	return (offset);
 }
 
@@ -56,20 +59,24 @@ static int		get_av_offset(t_flags *flags)
 
 static void		get_options(int ac, char **av, t_flags *flags)
 {
-	if (ac > 2)
+	if (flags)
 	{
-		flags->visualizer = (!(ft_strcmp(av[1], "-v")) || !(ft_strcmp(av[2], "-v")));
-		flags->color = (!ft_strcmp(av[1], "-c") || !ft_strcmp(av[2], "-c"));
-	}
-	else if (ac == 2)
-	{
-		flags->visualizer = (!ft_strcmp(av[1], "-v"));
-		flags->color = (!ft_strcmp(av[1], "-c"));
+		if (ac > 2)
+		{
+			flags->visualizer = (!(ft_strcmp(av[1], "-v")) || !(ft_strcmp(av[2], "-v")));
+			flags->color = (!ft_strcmp(av[1], "-c") || !ft_strcmp(av[2], "-c"));
+		}
+		else if (ac == 2)
+		{
+			flags->visualizer = (!ft_strcmp(av[1], "-v"));
+			flags->color = (!ft_strcmp(av[1], "-c"));
+		}
 	}
 }
 
 /*
-** Compute argument offset skipping program's name and potential options in av
+** Compute argument offset skipping program's name
+** Also skips eventual command line options if *flags is not NULL
 ** Then get formated input from av into head_a if valid
 */
 
