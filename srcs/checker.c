@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 20:59:37 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/15 19:19:12 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void		get_options(int ac, char **av, int *visualizer, int *color)
 		*visualizer = (!(ft_strcmp(av[1], "-v")) || !(ft_strcmp(av[2], "-v")));
 		*color = (!ft_strcmp(av[1], "-c") || !ft_strcmp(av[2], "-c"));
 	}
-	else if (ac > 1)
+	else if (ac == 2)
 	{
 		*visualizer = (!ft_strcmp(av[1], "-v"));
 		*color = (!ft_strcmp(av[1], "-c"));
