@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 23:33:42 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/16 00:47:04 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,7 @@ int		main(int ac, char **av)
 	{
 		get_options(ac, av, &flags);
 		av_offset = get_av_offset(&flags);
-		if (!(head_a = stack_new(0)))
-			put_error("Failed to allocate stack head");
-		if ((init_stack(head_a, ac - av_offset, av + av_offset)) < 0)
+		if (!(head_a = init_stack(ac - av_offset, av + av_offset)))
 			put_error("Failed to initialize stack");
 		print_stack(head_a);
 		del_stack(&head_a);
