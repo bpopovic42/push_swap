@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/16 00:47:04 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/16 01:15:56 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,12 @@ int		main(int ac, char **av)
 		av_offset = get_av_offset(&flags);
 		if (!(head_a = init_stack(ac - av_offset, av + av_offset)))
 			put_error("Failed to initialize stack");
+		//instructions = get_instructions();
+		//execute_instructions(head_a, head_b, instructions, &flags);
+		//check_if_sorted(head_a, head_b);
 		print_stack(head_a);
 		del_stack(&head_a);
+		//if (head_b); del_stack(&head_b);
 	}
 	return (0);
 }
