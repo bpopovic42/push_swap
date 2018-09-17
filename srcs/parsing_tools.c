@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:04:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 23:38:42 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 16:30:11 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int			get_next_val_if_valid(t_stack *ptr, char *value)
 	if (ft_isdigit(*value) || (ft_issign(*value) && ft_isdigit(*(value + 1))))
 	{
 		if (!is_only_digits(value))
-			put_error("Invalid integer parameter");
+			return (-1);
 		nbr = ft_atol(value);
 		if (nbr > INT_MAX || nbr < INT_MIN)
-			put_error("Integer value is off INT limits");
+			return (-1);
 		else
 			ptr->val = (int)nbr;
 	}
 	else
-		put_error("Invalid integer parameter");
+		return (-1);
 	return (0);
 }
 

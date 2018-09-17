@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:06:40 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/16 01:31:04 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 16:35:37 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,29 @@
 ** Initialize 1st stack by parsing program arguments
 */
 
-t_stack			*init_stack(int ac, char **av)
+int			init_stack(int ac, char **av, t_stack **head)
 {
-	t_stack	*head;
 	t_stack	*ptr;
 	int		i;
 
-	if (!(head = stack_new(0)))
-		put_error("Memory allocation failure");
-	ptr = head;
+	if (!(*head = stack_new(0)))
+		return (-1);
+	ptr = *head;
 	i = 0;
 	while (i < ac)
 	{
 		if (i + 1 < ac)
 		{
 			if (!(ptr->next = stack_new(0)))
-				put_error("Memory allocation failure");
+				return (-1);
 			ptr->next->prev = ptr;
 		}
 		if ((get_next_val_if_valid(ptr, av[i])) < 0)
-			return (0);
+			return (-1);
 		i++;
 		ptr = ptr->next;
 	}
-	return (head);
+	return (0);
 }
 
 /*

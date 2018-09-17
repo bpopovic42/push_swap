@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:09:16 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 23:09:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 15:31:08 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 ** Prints msg and exit with code -1
 */
 
-void			put_error(char *msg)
+int				put_error(char *msg, int return_value)
 {
-	if (msg)
+	if (PRINT_ERROR_MSG)
 		ft_putstr(msg);
-	exit(-1);
+	return (return_value);
 }

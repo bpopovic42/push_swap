@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 01:24:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/16 01:47:00 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 16:36:27 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@
 static int	check_argc(int ac, char **av)
 {
 	if (ac < 2)
-		put_error("Invalid argument count");
+		return (-1);
 	else if (ac > 1 && (!ft_strcmp(av[1], "-v") || !ft_strcmp(av[1], "-c")))
 	{
 		if (ac < 3)
-			put_error("Invalid argument count");
+			return (-1);
 		if (ac > 2 && ((!ft_strcmp(av[2], "-v") || !ft_strcmp(av[2], "-c"))))
 		{
 			if (!ft_strcmp(av[1], av[2]))
-				put_error("Same argument option used twice");
+				return (-1);
 			if (ac < 4)
-				put_error("Invalid argument count");
+				return (-1);
 		}
 	}
 	return (0);
@@ -85,10 +85,10 @@ int			get_input(int ac, char **av, t_stack **head_a, t_flags *flags)
 	int		av_offset;
 
 	if ((check_argc(ac, av)) < 0)
-		put_error("Invalid arguments");
+		return (-1);
 	get_options(ac, av, flags);
 	av_offset = get_av_offset(flags);
-	if (!(*head_a = init_stack(ac - av_offset, av + av_offset)))
-		put_error("Failed to initialize stack");
+	if ((init_stack(ac - av_offset, av + av_offset, head_a)) < 0)
+		return (-1);
 	return (0);
 }
