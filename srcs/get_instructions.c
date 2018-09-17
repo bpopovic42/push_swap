@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 23:02:57 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/17 02:11:41 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 02:37:21 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,11 @@ int				get_instructions(t_list **instructions)
 			record_instruction(&ptr, val);
 			if (!(*instructions))
 				*instructions = ptr;
+			else
+				ptr = ptr->next;
 		}
-		free(line);
+		ft_strdel(&line);
 	}
-	free(line);
+	ft_strdel(&line);
 	return (ret);
 }
