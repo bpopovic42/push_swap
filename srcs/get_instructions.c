@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 23:02:57 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/17 16:39:16 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 16:58:55 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,24 @@ static int		is_instruction(char *instruction)
 	return (0);
 }
 
-static int		record_instruction(t_list **instructions, int val)
+static void		record_instruction(t_list **instructions, int val)
 {
 	t_list	*ptr;
 
 	ptr = NULL;
 	if (!(ptr = ft_lstnew(&val, sizeof(val))))
-		return (-1);
+		exit(-1);
 	if (!(*instructions))
 		*instructions = ptr;
 	else
 		(*instructions)->next = ptr;
-	return (0);
+}
+
+static int		exit_clean(char *msg, char **line)
+{
+	put_error(msg, -1);
+	ft_strdel(line);
+	return (-1);
 }
 
 int				get_instructions(t_list **instructions)
@@ -73,18 +79,11 @@ int				get_instructions(t_list **instructions)
 		if (!(val = is_instruction(line)))
 		{
 			if (ptr || ((fd = open(line, O_RDONLY)) < 0))
-			{
-				ft_strdel(&line);
-				return (-1);
-			}
+				return (exit_clean("Wrong filename or instruction", &line));
 		}
 		else
 		{
-			if (record_instruction(&ptr, val) < 0)
-			{
-				ft_strdel(&line);
-				return (-1);
-			}
+			record_instruction(&ptr, val);
 			if (!(*instructions))
 				*instructions = ptr;
 			else
