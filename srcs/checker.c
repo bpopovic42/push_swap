@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/17 16:46:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 17:06:46 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int		main(int ac, char **av)
 	head_b = NULL;
 	instructions = NULL;
 	if (get_input(ac, av, &head_a, &flags) < 0)
-		return(clean_exit("Bad input", &head_a, &head_b, &instructions));
+		return (clean_exit("Bad input", &head_a, &head_b, &instructions));
 	if (get_instructions(&instructions) < 0)
-		return(clean_exit("Bad instruction", &head_a, &head_b, &instructions));
+		return (clean_exit("Bad instruction", &head_a, &head_b, &instructions));
 	//execute_instructions(head_a, head_b, instructions, &flags);
 	//check_if_sorted(head_a, head_b);
 	//print_instructions(&instructions);
