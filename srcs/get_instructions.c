@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 23:02:57 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/17 16:58:55 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 20:40:27 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,52 +43,53 @@ static int		is_instruction(char *instruction)
 
 static void		record_instruction(t_list **instructions, int val)
 {
+	t_list	*new;
 	t_list	*ptr;
 
+	new = NULL;
 	ptr = NULL;
-	if (!(ptr = ft_lstnew(&val, sizeof(val))))
+	if (!(new = ft_lstnew(&val, sizeof(val))))
 		exit(-1);
 	if (!(*instructions))
-		*instructions = ptr;
+		*instructions = new;
 	else
-		(*instructions)->next = ptr;
+	{
+		ptr = *instructions;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = new;
+	}
 }
+
+#include "ft_printf.h"
 
 static int		exit_clean(char *msg, char **line)
 {
-	put_error(msg, -1);
+	ft_printf("Line's address at exit : %p\n", *line);
 	ft_strdel(line);
-	return (-1);
+	return (put_error(msg, -1));
 }
 
 int				get_instructions(t_list **instructions)
 {
-	t_list	*ptr;
 	char	*line;
 	int		ret;
 	int		val;
 	int		fd;
 
-	ptr = NULL;
 	line = NULL;
 	ret = 0;
 	val = 0;
 	fd = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		if (!(val = is_instruction(line)))
+		val = is_instruction(line);
+		if (!val && (*instructions || ((fd = open(line, O_RDONLY)) < 0)))
 		{
-			if (ptr || ((fd = open(line, O_RDONLY)) < 0))
-				return (exit_clean("Wrong filename or instruction", &line));
+			ft_printf("Line's address before exit : %p\n", line);
+			return (exit_clean("Wrong filename or instruction", &line));
 		}
-		else
-		{
-			record_instruction(&ptr, val);
-			if (!(*instructions))
-				*instructions = ptr;
-			else
-				ptr = ptr->next;
-		}
+		record_instruction(instructions, val);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
