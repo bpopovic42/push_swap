@@ -6,13 +6,14 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/16 01:34:49 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 02:03:49 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECKER_H
 # define CHECKER_H
 
+# include "libft.h"
 # include <fcntl.h>
 # include <unistd.h>
 
@@ -44,5 +45,6 @@ void		put_error(char *msg);
 int			get_next_val_if_valid(t_stack *ptr, char *value);
 int			is_only_digits(char *str);
 int			get_input(int ac, char **av, t_stack **head_a, t_flags *flags);
+int			get_instructions(t_list **instructions);
 
 #endif
