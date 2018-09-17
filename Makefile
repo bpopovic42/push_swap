@@ -17,6 +17,10 @@ SDIR		=	./srcs
 
 ODIR		=	./objs
 
+HEADERS		=	checker.h
+
+INCS		=	$(addprefix $(IDIR)/, $(HEADERS))
+
 LFT			=	$(addprefix -I,$(LDIR)/$(IDIR))
 
 INC			=	$(addprefix -I,$(IDIR))
@@ -35,7 +39,7 @@ $(NAME)		:	$(OBJ) lib
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) $(LFT) $(INC)
 	@/bin/rm -f .cmp
 
-$(ODIR)/%.o	:	$(SDIR)/%.c
+$(ODIR)/%.o	:	$(SDIR)/%.c $(INCS)
 			@$(CMP)
 			@$(MKODIR)
 			$(CC) $(CFLAGS) -c $< -o $@ $(LFT) $(INC)
