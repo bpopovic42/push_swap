@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/17 02:49:03 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/17 15:26:22 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 		ptr = ptr->next;
 	}
 }*/
+
+void		del_lst_content(void *ptr, size_t size)
+{
+	(void)size;
+	free(ptr);
+}
 
 /*
 ** Parse program input in order to initialize 1st stack and command line options
@@ -50,7 +56,7 @@ int		main(int ac, char **av)
 	//check_if_sorted(head_a, head_b);
 	//print_stack(head_a);
 	//print_instructions(&instructions);
-	ft_lstdel(&instructions, ft_bzero);
+	ft_lstdel(&instructions, del_lst_content);
 	del_stack(&head_a);
 	while (1);
 	//if (head_b); del_stack(&head_b);
