@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 23:02:57 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/17 20:40:27 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/18 19:02:39 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,8 @@ static void		record_instruction(t_list **instructions, int val)
 	}
 }
 
-#include "ft_printf.h"
-
 static int		exit_clean(char *msg, char **line)
 {
-	ft_printf("Line's address at exit : %p\n", *line);
 	ft_strdel(line);
 	return (put_error(msg, -1));
 }
@@ -84,14 +81,13 @@ int				get_instructions(t_list **instructions)
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		val = is_instruction(line);
-		if (!val && (*instructions || ((fd = open(line, O_RDONLY)) < 0)))
-		{
-			ft_printf("Line's address before exit : %p\n", line);
+		if (!val && (*instructions || (fd = open(line, O_RDONLY)) < 0))
 			return (exit_clean("Wrong filename or instruction", &line));
-		}
 		record_instruction(instructions, val);
 		ft_strdel(&line);
 	}
+	if (fd > 0)
+		close(fd);
 	ft_strdel(&line);
 	return (ret);
 }

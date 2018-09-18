@@ -3,7 +3,7 @@ NAME		=	test.out
 CC			=	gcc
 
 SRCS		=	checker.c display.c error.c parsing_tools.c stack_tools.c \
-			get_input.c get_instructions.c
+			get_input.c get_instructions.c execute_instructions.c
 
 LIBS		=	libft.a
 

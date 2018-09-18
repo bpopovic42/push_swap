@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/17 16:36:10 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/18 19:28:51 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef struct		s_stack
 	int				val;
 }					t_stack;
 
+typedef struct		s_ptr
+{
+	t_stack			*head_a;
+	t_stack			*tail_a;
+	t_stack			*head_b;
+	t_stack			*tail_b;
+}					t_ptr;
+
 /*
 ** FUNCTIONS
 */
@@ -48,5 +56,6 @@ int			get_next_val_if_valid(t_stack *ptr, char *value);
 int			is_only_digits(char *str);
 int			get_input(int ac, char **av, t_stack **head_a, t_flags *flags);
 int			get_instructions(t_list **instructions);
+int			execute_instructions(t_ptr *stacks, t_list **inst, t_flags *flags);
 
 #endif
