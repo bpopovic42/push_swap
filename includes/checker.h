@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/18 19:28:51 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/19 04:18:20 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ typedef struct		s_ptr
 ** FUNCTIONS
 */
 
-int			init_stack(int ac, char **av, t_stack **head);
+int			init_stack(char **params, t_stack **head);
 void		print_stack(t_stack *head);
 t_stack		*stack_new(int val);
 void		del_stack(t_stack **stack);
 void		delone_stack(t_stack **stack);
 int			put_error(char *msg, int return_value);
 int			get_next_val_if_valid(t_stack *ptr, char *value);
-int			is_only_digits(char *str);
+int			check_characters(char *str);
 int			get_input(int ac, char **av, t_stack **head_a, t_flags *flags);
 int			get_instructions(t_list **instructions);
 int			execute_instructions(t_ptr *stacks, t_list **inst, t_flags *flags);

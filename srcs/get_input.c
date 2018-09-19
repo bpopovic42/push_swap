@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 01:24:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/19 03:46:14 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/19 04:00:07 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void		get_options(int ac, char **av, t_flags *flags)
 	}
 }
 
-static int		format_av(int ac, char **av, char **output)
+static int		format_av(int ac, char **av, char ***output)
 {
 	char	*join;
 	char	*tmp;
@@ -93,10 +93,22 @@ static int		format_av(int ac, char **av, char **output)
 		join = tmp;
 		i++;
 	}
-	ft_putendl(join);
-	output = ft_strsplit(join, ' ');
+	*output = ft_strsplit(join, ' ');
 	ft_strdel(&join);
 	return (0);
+}
+
+static void			free_params(char **params)
+{
+	int		i;
+
+	i = 0;
+	while (params[i])
+	{
+		ft_strdel(&params[i]);
+		i++;
+	}
+	free(params);
 }
 
 /*
@@ -115,8 +127,9 @@ int			get_input(int ac, char **av, t_stack **head_a, t_flags *flags)
 		return (-1);
 	get_options(ac, av, flags);
 	av_offset = get_av_offset(flags);
-	format_av(ac - av_offset, av + av_offset, params);
-	if ((init_stack(ac - av_offset, av + av_offset, head_a)) < 0)
+	format_av(ac - av_offset, av + av_offset, &params);
+	if ((init_stack(params, head_a)) < 0)
 		return (-1);
+	free_params(params);
 	return (0);
 }
