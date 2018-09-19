@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 01:24:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/19 23:00:35 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/20 00:42:23 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static void			free_params(char **params)
 ** Returns -1 in case of error, 0 otherwise
 */
 
-int			get_input(int ac, char **av, t_dlist **head_a, t_flags *flags)
+int			get_input(int ac, char **av, t_dlist **head_a, t_dlist **tail_a, t_flags *flags)
 {
 	int		av_offset;
 	char	**params;
@@ -129,7 +129,7 @@ int			get_input(int ac, char **av, t_dlist **head_a, t_flags *flags)
 	get_options(ac, av, flags);
 	av_offset = get_av_offset(flags);
 	format_av(ac - av_offset, av + av_offset, &params);
-	if ((init_stack(params, head_a)) < 0)
+	if ((init_stack(params, head_a, tail_a)) < 0)
 		return (-1);
 	free_params(params);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:06:40 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/19 21:46:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/20 00:41:30 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Initialize 1st stack by parsing program arguments
 */
 
-int			init_stack(char **params, t_dlist **head)
+int			init_stack(char **params, t_dlist **head, t_dlist **tail)
 {
 	t_dlist	*ptr;
 	int		i;
@@ -34,6 +34,8 @@ int			init_stack(char **params, t_dlist **head)
 				exit(-1);
 			ptr->next->prev = ptr;
 		}
+		else
+			*tail = ptr;
 		if ((get_next_val_if_valid(ptr, params[i])) < 0)
 			return (-1);
 		i++;
