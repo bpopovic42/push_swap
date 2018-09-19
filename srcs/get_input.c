@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 01:24:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/18 19:28:50 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/19 03:46:14 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,31 @@ static void		get_options(int ac, char **av, t_flags *flags)
 	}
 }
 
+static int		format_av(int ac, char **av, char **output)
+{
+	char	*join;
+	char	*tmp;
+	int		i;
+
+	tmp = NULL;
+	join = NULL;
+	i = 0;
+	while (i < ac)
+	{
+		tmp = ft_strjoin(join, av[i]);
+		ft_strdel(&join);
+		join = tmp;
+		tmp = ft_strjoin(join, " ");
+		ft_strdel(&join);
+		join = tmp;
+		i++;
+	}
+	ft_putendl(join);
+	output = ft_strsplit(join, ' ');
+	ft_strdel(&join);
+	return (0);
+}
+
 /*
 ** Compute argument offset skipping program's name
 ** Also skips eventual command line options if *flags is not NULL
@@ -83,11 +108,14 @@ static void		get_options(int ac, char **av, t_flags *flags)
 int			get_input(int ac, char **av, t_stack **head_a, t_flags *flags)
 {
 	int		av_offset;
+	char	**params;
 
+	params = NULL;
 	if ((check_argc(ac, av)) < 0)
 		return (-1);
 	get_options(ac, av, flags);
 	av_offset = get_av_offset(flags);
+	format_av(ac - av_offset, av + av_offset, params);
 	if ((init_stack(ac - av_offset, av + av_offset, head_a)) < 0)
 		return (-1);
 	return (0);
