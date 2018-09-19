@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 01:24:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/19 04:00:07 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/19 23:00:35 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,13 @@ static void			free_params(char **params)
 }
 
 /*
-** Compute argument offset skipping program's name
-** Also skips eventual command line options if *flags is not NULL
-** Then get formated input from av into head_a if valid
+** Skips program's name and eventual command line options from av
+** Then gets formatted input from av to params, into head_a if valid
+** Finally frees params
+** Returns -1 in case of error, 0 otherwise
 */
 
-int			get_input(int ac, char **av, t_stack **head_a, t_flags *flags)
+int			get_input(int ac, char **av, t_dlist **head_a, t_flags *flags)
 {
 	int		av_offset;
 	char	**params;

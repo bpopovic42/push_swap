@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:08:19 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/15 23:09:00 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/19 21:43:58 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 ** Prints value of each link in the stack until its end
 */
 
-void		print_stack(t_stack *head)
+void		print_stack(t_dlist *head)
 {
-	t_stack		*stack;
+	t_dlist		*stack;
 	int			count;
 
 	stack = head;
 	count = 0;
 	while (stack)
 	{
-		ft_putnbr(stack->val);
+		ft_putnbr((*((int*)stack->content)));
 		ft_putchar('\n');
 		stack = stack->next;
 		count++;

@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 16:27:54 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/13 17:33:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/19 21:28:43 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_dlist
+{
+	void			*content;
+	size_t			content_size;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}					t_dlist;
 
 typedef struct		s_hash
 {

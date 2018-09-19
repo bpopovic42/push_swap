@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:06:40 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/19 03:52:47 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/19 21:46:46 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 ** Initialize 1st stack by parsing program arguments
 */
 
-int			init_stack(char **params, t_stack **head)
+int			init_stack(char **params, t_dlist **head)
 {
-	t_stack	*ptr;
+	t_dlist	*ptr;
 	int		i;
 
 	if (!(*head = stack_new(0)))
@@ -47,16 +47,17 @@ int			init_stack(char **params, t_stack **head)
 ** Returns a pointer to the new link
 */
 
-t_stack			*stack_new(int val)
+t_dlist			*stack_new(int val)
 {
-	t_stack		*stack;
+	t_dlist		*stack;
 
 	stack = 0;
-	if (!(stack = malloc(sizeof(t_stack))))
+	if (!(stack = malloc(sizeof(t_dlist))))
 		exit(-1);
 	stack->prev = 0;
 	stack->next = 0;
-	stack->val = val;
+	stack->content = ft_memdup(&val, sizeof(int));
+	stack->content_size = sizeof(int);
 	return (stack);
 }
 
@@ -64,10 +65,10 @@ t_stack			*stack_new(int val)
 ** Erase and free all stack's links until its end
 */
 
-void			del_stack(t_stack **stack)
+void			del_stack(t_dlist **stack)
 {
-	t_stack		*head;
-	t_stack		*ptr;
+	t_dlist		*head;
+	t_dlist		*ptr;
 
 	head = *stack;
 	while (head)
@@ -82,13 +83,15 @@ void			del_stack(t_stack **stack)
 ** Erase and frees one stack link
 */
 
-void			delone_stack(t_stack **stack)
+void			delone_stack(t_dlist **stack)
 {
-	t_stack		*ptr;
+	t_dlist		*ptr;
 
 	ptr = *stack;
 	ptr->prev = 0;
 	ptr->next = 0;
-	ptr->val = 0;
+	ft_bzero(ptr->content, ptr->content_size);
+	ptr->content_size = 0;
+	free(ptr->content);
 	free(ptr);
 }
