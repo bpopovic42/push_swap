@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 14:38:27 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/20 15:19:56 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,12 @@
 #include "checker.h"
 
 /*
-** Tool function passed to ft_lstdelone to properly free list link
-*/
-
-static void		del_lst_content(void *ptr, size_t size)
-{
-	(void)size;
-	free(ptr);
-}
-
-/*
 ** Frees stacks from container and instructions list
 */
 
 static void		free_structures(t_stacks *stacks, t_list **inst)
 {
-	ft_lstdel(inst, del_lst_content);
+	ft_lstdel(inst, ft_bzero);
 	ft_dlstdel(&(stacks->head_a), ft_bzero);
 	ft_dlstdel(&(stacks->head_b), ft_bzero);
 }
@@ -79,6 +69,16 @@ int		main(int ac, char **av)
 		return (clean_exit("Bad instruction", &stacks, &instructions));
 	execute_instructions(&stacks, &instructions, &flags);
 	print_stack(stacks.head_a);
+	print_stack(stacks.head_b);
+	while (stacks.head_a)
+	{
+		t_dlist *tmp = ft_dlstpop(&(stacks.head_a));
+		ft_dlstpush(&(stacks.head_b), tmp);
+		ft_putstr("\nA ");
+		print_stack(stacks.head_a);
+		ft_putstr("\nB ");
+		print_stack(stacks.head_b);
+	}
 	//check_if_sorted(head_a, head_b);
 	//print_instructions(&instructions);
 	free_structures(&stacks, &instructions);
