@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 00:41:52 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/20 14:35:54 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ typedef struct		s_instruction
 
 int			init_stack(char **params, t_dlist **head, t_dlist **tail);
 void		print_stack(t_dlist *head);
-t_dlist		*stack_new(int val);
-void		del_stack(t_dlist **stack);
-void		delone_stack(t_dlist **stack);
 int			put_error(char *msg, int return_value);
 int			get_next_val_if_valid(t_dlist *ptr, char *value);
 int			check_characters(char *str);

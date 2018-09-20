@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 16:27:54 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 00:19:20 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/20 14:39:43 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstpush(t_list **alist, t_list *list);
-void				ft_dlstswap(t_dlist **a, t_dlist **b);
+t_dlist				*ft_dlstnew(void const *content, size_t content_size);
+void				ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t));
+void				ft_dlstdelone(t_dlist **alst, void (*del)(void *, size_t));
 
 /*
 ** MEMORY FUNCTIONS

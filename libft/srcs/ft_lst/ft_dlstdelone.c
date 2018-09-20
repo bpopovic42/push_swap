@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlstswap.c                                      :+:      :+:    :+:   */
+/*   ft_dlstdelone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/20 00:08:38 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 01:46:54 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/09/20 14:32:18 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/09/20 14:35:34 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_printf.h"
 
-void		ft_dlstswap(t_dlist **a, t_dlist **b)
+void	ft_dlstdelone(t_dlist **alst, void (*del)(void *, size_t))
 {
 	t_dlist		*ptr;
-	t_dlist		*next;
-	t_dlist		*prev;
 
-	next = (*a)->next;
-	prev = (*a)->prev;
-	ptr = *a;
-	if ((*b)->next)
-		(*b)->next->prev = (*a);
-	if ((*b)->prev)
-		(*b)->prev->next = (*a);
-	*a = *b;
-	*b = ptr;
-	if (next)
-		next->prev = (*b);
-	if (prev)
-		prev->next = (*b);
-	(*b)->next = (*a)->next;
-	(*b)->prev = (*a)->prev;
-	(*a)->next = next;
-	(*a)->prev = prev;
+	ptr = *alst;
+	ptr->prev = 0;
+	ptr->next = 0;
+	del(ptr->content, ptr->content_size);
+	ptr->content_size = 0;
+	free(ptr->content);
+	free(ptr);
 }
