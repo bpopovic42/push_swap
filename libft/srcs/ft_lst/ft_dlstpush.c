@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_dlstpush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/20 19:15:45 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 14:57:02 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/09/20 15:12:08 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/09/20 15:19:05 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	ft_dlstpush(t_dlist **head, t_dlist *elem)
 {
-	if (alst && del)
+	if (elem)
 	{
-		del(((*alst)->content), (*alst)->content_size);
-		free(*alst);
-		*alst = NULL;
+		if (*head)
+		{
+			(*head)->prev = elem;
+			elem->next = *head;
+		}
+		else
+			elem->next = NULL;
+		elem->prev = NULL;
+		*head = elem;
 	}
 }
