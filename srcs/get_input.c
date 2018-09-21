@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 01:24:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 13:10:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 21:38:04 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,10 @@ int			get_input(int ac, char **av, t_dlist **head_a, t_flags *flags)
 	av_offset = get_av_offset(flags);
 	format_av(ac - av_offset, av + av_offset, &params);
 	if ((init_stack(params, head_a)) < 0)
+	{
+		free_params(params);
 		return (-1);
+	}
 	free_params(params);
 	return (0);
 }
