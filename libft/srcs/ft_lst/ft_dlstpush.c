@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:12:08 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 15:10:54 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 23:02:48 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	ft_dlstpush(t_dlist **head, t_dlist *elem)
 		{
 			elem->prev = (*head)->prev;
 			elem->next = *head;
-			if ((*head)->prev)
-				(*head)->prev->next = elem;
+			if (elem->prev)
+				elem->prev->next = elem;
+			if (elem->next)
+				elem->next->prev = elem;
 		}
 		else
 		{
