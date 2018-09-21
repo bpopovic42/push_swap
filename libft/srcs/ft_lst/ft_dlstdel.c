@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 14:30:45 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 14:34:18 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 13:19:40 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void			ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t))
 	t_dlist		*ptr;
 
 	head = *alst;
-	while (head)
+	while (head && head->next != *alst)
 	{
 		ptr = head->next;
 		ft_dlstdelone(&head, del);

@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:08:19 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 00:16:37 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 14:45:57 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void		print_stack(t_dlist *head, char stack_name)
 
 	stack = head;
 	count = 0;
+	ft_putchar(stack_name);
+	ft_putstr(" = ");
 	if (head)
 	{
 		while (stack)
@@ -33,15 +35,13 @@ void		print_stack(t_dlist *head, char stack_name)
 				ft_putchar(' ');
 			stack = stack->next;
 			count++;
+			if (stack == head)
+				break ;
 		}
 	}
 	else
 		ft_putstr("(null)");
-	ft_putchar('\n');
-	ft_putchar(stack_name);
-	ft_putchar(' ');
-	ft_putstr("Stack size = ");
+	ft_putstr(" Stack size = ");
 	ft_putnbr(count);
-	ft_putchar('\n');
 	ft_putchar('\n');
 }

@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 00:15:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 16:28:15 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static void		init_stacks_container(t_stacks *container)
 {
 	container->head_a = NULL;
 	container->head_b = NULL;
-	container->tail_a = NULL;
-	container->tail_b = NULL;
 }
 
 /*
@@ -63,28 +61,19 @@ int		main(int ac, char **av)
 
 	instructions = NULL;
 	init_stacks_container(&stacks);
-	if (get_input(ac, av, &(stacks.head_a), &(stacks.tail_a), &flags) < 0)
+	if (get_input(ac, av, &(stacks.head_a), &flags) < 0)
 		return (clean_exit("Bad input", &stacks, &instructions));
 	if (get_instructions(&instructions) < 0)
 		return (clean_exit("Bad instruction", &stacks, &instructions));
 	execute_instructions(&stacks, &instructions, &flags);
 	print_stack(stacks.head_a, 'A');
 	print_stack(stacks.head_b, 'B');
-	push_b(&stacks);
+
+	ft_putstr("[SWAP A]\n");
+	swap_a(&stacks);
 	print_stack(stacks.head_a, 'A');
 	print_stack(stacks.head_b, 'B');
-	push_b(&stacks);
-	print_stack(stacks.head_a, 'A');
-	print_stack(stacks.head_b, 'B');
-	push_b(&stacks);
-	print_stack(stacks.head_a, 'A');
-	print_stack(stacks.head_b, 'B');
-	push_b(&stacks);
-	print_stack(stacks.head_a, 'A');
-	print_stack(stacks.head_b, 'B');
-	push_b(&stacks);
-	print_stack(stacks.head_a, 'A');
-	print_stack(stacks.head_b, 'B');
+
 	//check_if_sorted(head_a, head_b);
 	//print_instructions(&instructions);
 	free_structures(&stacks, &instructions);

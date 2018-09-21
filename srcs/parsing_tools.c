@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:04:18 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 14:45:48 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 13:26:06 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ static int		is_only_digit(char *str)
 ** Assign value to ptr if it is valid
 */
 
-int			get_next_val_if_valid(t_dlist *ptr, char *value)
+t_dlist		*get_next_val_if_valid(char *value)
 {
-	long	nbr;
+	long		nbr;
+	t_dlist		*tmp;
 
 	nbr = 0;
+	tmp = NULL;
 	if (!check_characters(value))
-		return (-1);
+		return (NULL);
 	while (*value && !ft_isdigit(*value) && !ft_issign(*value))
 		value++;
 	if (ft_issign(*value))
@@ -51,12 +53,12 @@ int			get_next_val_if_valid(t_dlist *ptr, char *value)
 	if (*value && is_only_digit(value))
 		nbr = ft_atol(value);
 	else
-		return (-1);
+		return (NULL);
 	if (nbr > INT_MAX || nbr < INT_MIN)
-		return (-1);
+		return (NULL);
 	else
-		ft_memcpy(ptr->content, &nbr, (sizeof(int)));
-	return (0);
+		tmp = ft_dlstnew(&nbr, sizeof(int));
+	return (tmp);
 }
 
 /*
