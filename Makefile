@@ -4,7 +4,7 @@ CC			=	gcc
 
 SRCS		=	checker.c display.c error.c parsing_tools.c stack_tools.c \
 			get_input.c get_instructions.c execute_instructions.c swap.c \
-			push.c
+			push.c rotate.c reverse_rotate.c debug.c
 
 LIBS		=	libft.a
 
@@ -46,7 +46,7 @@ $(ODIR)/%.o	:	$(SDIR)/%.c $(INCS)
 			$(CC) $(CFLAGS) -c $< -o $@ $(LFT) $(INC)
 
 lib			:
-	@$(MAKE) DEBUG=$(DEBUG) -C $(LDIR)
+	@$(MAKE) DEBUG="$(DEBUG)" -C $(LDIR)
 
 clean		:
 	@$(MAKE) clean -C $(LDIR)
