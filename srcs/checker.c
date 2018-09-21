@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 15:19:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 00:15:36 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,23 @@ int		main(int ac, char **av)
 	if (get_instructions(&instructions) < 0)
 		return (clean_exit("Bad instruction", &stacks, &instructions));
 	execute_instructions(&stacks, &instructions, &flags);
-	print_stack(stacks.head_a);
-	print_stack(stacks.head_b);
-	while (stacks.head_a)
-	{
-		t_dlist *tmp = ft_dlstpop(&(stacks.head_a));
-		ft_dlstpush(&(stacks.head_b), tmp);
-		ft_putstr("\nA ");
-		print_stack(stacks.head_a);
-		ft_putstr("\nB ");
-		print_stack(stacks.head_b);
-	}
+	print_stack(stacks.head_a, 'A');
+	print_stack(stacks.head_b, 'B');
+	push_b(&stacks);
+	print_stack(stacks.head_a, 'A');
+	print_stack(stacks.head_b, 'B');
+	push_b(&stacks);
+	print_stack(stacks.head_a, 'A');
+	print_stack(stacks.head_b, 'B');
+	push_b(&stacks);
+	print_stack(stacks.head_a, 'A');
+	print_stack(stacks.head_b, 'B');
+	push_b(&stacks);
+	print_stack(stacks.head_a, 'A');
+	print_stack(stacks.head_b, 'B');
+	push_b(&stacks);
+	print_stack(stacks.head_a, 'A');
+	print_stack(stacks.head_b, 'B');
 	//check_if_sorted(head_a, head_b);
 	//print_instructions(&instructions);
 	free_structures(&stacks, &instructions);
