@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 23:02:57 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 13:10:58 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 21:35:48 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,76 +14,97 @@
 #include "checker.h"
 #include "libft.h"
 
-static int		is_instruction(char *instruction)
+static void		(*is_instruction(char *instruction))(t_stacks*)
 {
 	if (!ft_strcmp("sa", instruction))
-		return (1);
+		return (&swap_a);
 	else if (!ft_strcmp("sb", instruction))
-		return (2);
+		return (&swap_b);
 	else if (!ft_strcmp("ss", instruction))
-		return (3);
+		return (&swap_ab);
 	else if (!ft_strcmp("pa", instruction))
-		return (4);
+		return (&push_a);
 	else if (!ft_strcmp("pb", instruction))
-		return (5);
+		return (&push_b);
 	else if (!ft_strcmp("ra", instruction))
-		return (6);
+		return (&rotate_a);
 	else if (!ft_strcmp("rb", instruction))
-		return (7);
+		return (&rotate_b);
 	else if (!ft_strcmp("rr", instruction))
-		return (8);
+		return (&rotate_ab);
 	else if (!ft_strcmp("rra", instruction))
-		return (9);
+		return (&reverse_rotate_a);
 	else if (!ft_strcmp("rrb", instruction))
-		return (10);
+		return (&reverse_rotate_b);
 	else if (!ft_strcmp("rrr", instruction))
-		return (11);
-	return (0);
+		return (&reverse_rotate_ab);
+	return (NULL);
 }
 
-static void		record_instruction(t_list **instructions, int val)
+
+static void		record_instruction(char *name, t_list **inst, void (*val)(t_stacks*))
 {
 	t_list	*new;
 	t_list	*ptr;
+	t_inst	*tmp;
 
 	new = NULL;
 	ptr = NULL;
-	if (!(new = ft_lstnew(&val, sizeof(val))))
+	tmp = NULL;
+	tmp = malloc(sizeof(*tmp));
+	tmp->name = NULL;
+	if (!(tmp->name = ft_strdup(name)))
 		exit(-1);
-	if (!(*instructions))
-		*instructions = new;
+	//if (!(tmp->function = ft_memdup(val, sizeof(val))))
+//		exit(-1);
+	tmp->function = val;
+	if (!(new = ft_lstnew(0, 0)))
+		exit(-1);
+	new->content = tmp;
+	if (!(*inst))
+		*inst = new;
 	else
 	{
-		ptr = *instructions;
+		ptr = *inst;
 		while (ptr->next)
 			ptr = ptr->next;
 		ptr->next = new;
 	}
 }
 
-static int		exit_clean(char *msg, char **line)
+void			del_instruction(void *inst, size_t size)
+{
+	(void)size;
+	ft_bzero((((t_inst*)inst)->name), ft_strlen(((t_inst*)inst)->name));
+	ft_strdel(&(((t_inst*)inst)->name));
+	free(inst);
+}
+
+static int		exit_clean(char *msg, t_list **inst, char **line)
 {
 	ft_strdel(line);
+	ft_lstdel(inst, del_instruction);
 	return (put_error(msg, -1));
 }
 
-int				get_instructions(t_list **instructions)
+int				get_instructions(t_list **inst)
 {
 	char	*line;
 	int		ret;
-	int		val;
+	void	(*val)(t_stacks*);
 	int		fd;
 
 	line = NULL;
 	ret = 0;
-	val = 0;
+	val = NULL;
 	fd = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		val = is_instruction(line);
-		if (!val && (*instructions || (fd = open(line, O_RDONLY)) < 0))
-			return (exit_clean("Wrong filename or instruction", &line));
-		record_instruction(instructions, val);
+		if (!val && (*inst || (fd = open(line, O_RDONLY)) < 0))
+			return (exit_clean("Wrong filename or instruction", inst, &line));
+		if (val)
+			record_instruction(line, inst, val);
 		ft_strdel(&line);
 	}
 	if (fd > 0)
