@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:01:06 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 15:03:05 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 23:02:56 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 t_dlist		*ft_dlstpop(t_dlist *elem)
 {
-	t_dlist		*tmp;
-
-	tmp = NULL;
 	if (elem)
 	{
-		tmp = elem;
-		if (tmp->next)
-			tmp->next->prev = tmp->prev;
-		if (tmp->prev)
-			tmp->prev->next = tmp->next;
-		tmp->next = NULL;
-		tmp->prev = NULL;
+		if (elem->next)
+			elem->next->prev = elem->prev;
+		if (elem->prev)
+			elem->prev->next = elem->next;
+		elem->next = NULL;
+		elem->prev = NULL;
 	}
-	return (tmp);
+	return (elem);
 }
