@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 16:27:54 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/20 16:04:55 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 12:48:10 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void				ft_lstpush(t_list **alist, t_list *list);
 t_dlist				*ft_dlstnew(void const *content, size_t content_size);
 void				ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t));
 void				ft_dlstdelone(t_dlist **alst, void (*del)(void *, size_t));
-t_dlist				*ft_dlstpop(t_dlist **head);
+t_dlist				*ft_dlstpop(t_dlist *elem);
 void				ft_dlstpush(t_dlist **head, t_dlist *elem);
 void				ft_dlstadd(t_dlist **alst, t_dlist *elem);
 

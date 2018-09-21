@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 23:13:46 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 00:20:28 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/21 12:53:19 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,23 @@
 int		push_a(t_stacks *stacks)
 {
 	t_dlist		*tmp;
+	t_dlist		*ptr;
 
 	tmp = NULL;
+	ptr = NULL;
 	if (stacks->head_b)
 	{
 		if (stacks->head_b == stacks->tail_b)
+		{
 			stacks->head_b = NULL;
-		tmp = ft_dlstpop(&(stacks->tail_b));
+			ptr = stacks->tail_b;
+		}
+		else
+		{
+			ptr = stacks->tail_b;
+			stacks->tail_b = stacks->tail_b->prev;
+		}
+		tmp = ft_dlstpop(ptr);
 		ft_dlstadd(&(stacks->tail_a), tmp);
 		if (!stacks->head_a)
 			stacks->head_a = stacks->tail_a;
@@ -35,13 +45,23 @@ int		push_a(t_stacks *stacks)
 int		push_b(t_stacks *stacks)
 {
 	t_dlist		*tmp;
+	t_dlist		*ptr;
 
 	tmp = NULL;
+	ptr = NULL;
 	if (stacks->head_a)
 	{
 		if (stacks->head_a == stacks->tail_a)
+		{
 			stacks->head_a = NULL;
-		tmp = ft_dlstpop(&(stacks->tail_a));
+			ptr = stacks->tail_a;
+		}
+		else
+		{
+			ptr = stacks->tail_a;
+			stacks->tail_a = stacks->tail_a->prev;
+		}
+		tmp = ft_dlstpop(ptr);
 		ft_dlstadd(&(stacks->tail_b), tmp);
 		if (!stacks->head_b)
 			stacks->head_b = stacks->tail_b;
