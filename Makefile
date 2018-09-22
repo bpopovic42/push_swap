@@ -4,7 +4,7 @@ CC			=	gcc
 
 SRCS		=	checker.c display.c error.c parsing_tools.c stack_tools.c \
 			get_input.c get_instructions.c execute_instructions.c swap.c \
-			push.c rotate.c reverse_rotate.c debug.c
+			push.c rotate.c reverse_rotate.c debug.c check_if_sorted.c
 
 LIBS		=	libft.a
 

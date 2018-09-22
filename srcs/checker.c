@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 20:11:04 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/22 10:48:17 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ int		main(int ac, char **av)
 	if (get_instructions(&instructions) < 0)
 		return (clean_exit("Bad instruction", &stacks, &instructions));
 	execute_instructions(&stacks, &instructions, &flags);
-	//check_if_sorted(head_a, head_b);
-	//print_instructions(&instructions);
+	check_if_sorted(&stacks);
 	free_structures(&stacks, &instructions);
 	return (0);
 }
