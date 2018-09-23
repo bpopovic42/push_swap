@@ -6,47 +6,20 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/22 10:48:17 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/23 20:11:36 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "get_next_line.h"
 #include "checker.h"
 
 /*
-** Frees stacks from container and instructions list
-*/
-
-static void		free_structures(t_stacks *stacks, t_list **inst)
-{
-	ft_lstdel(inst, &del_instruction);
-	if (stacks->head_a && stacks->head_a->prev)
-		stacks->head_a->prev->next = NULL;
-	ft_dlstdel(&(stacks->head_a), ft_bzero);
-	if (stacks->head_b && stacks->head_b->prev)
-		stacks->head_b->prev->next = NULL;
-	ft_dlstdel(&(stacks->head_b), ft_bzero);
-}
-
-/*
-** Frees given structures, print error message if option is set and return -1
+** Frees given structures, print error message if not NULL and return -1
 */
 
 static int		clean_exit(char *msg, t_stacks *stacks, t_list **inst)
 {
 	free_structures(stacks, inst);
 	return (put_error(msg, -1));
-}
-
-/*
-** Null initializes stacks's containing structure
-*/
-
-static void		init_stacks_container(t_stacks *container)
-{
-	container->head_a = NULL;
-	container->head_b = NULL;
 }
 
 /*
@@ -62,15 +35,23 @@ int		main(int ac, char **av)
 	t_stacks	stacks;
 	t_flags		flags;
 	t_list		*instructions;
+	int			options;
 
 	instructions = NULL;
 	init_stacks_container(&stacks);
-	if (get_input(ac, av, &(stacks.head_a), &flags) < 0)
-		return (clean_exit("Bad input", &stacks, &instructions));
-	if (get_instructions(&instructions) < 0)
-		return (clean_exit("Bad instruction", &stacks, &instructions));
-	execute_instructions(&stacks, &instructions, &flags);
-	check_if_sorted(&stacks);
-	free_structures(&stacks, &instructions);
+	options = 1;
+	if (ac > 1)
+	{
+		options += get_flags(ac, av, &flags);
+		if (get_input(ac - options, av + options, &(stacks.head_a)) < 0)
+			return (clean_exit("Bad input", &stacks, &instructions));
+		if (get_instructions(&instructions) < 0)
+			return (clean_exit("Bad instruction", &stacks, &instructions));
+		execute_instructions(&stacks, &instructions, &flags);
+		check_if_sorted(&stacks);
+		free_structures(&stacks, &instructions);
+	}
+	else
+		put_error("No arguments provided", -1);
 	return (0);
 }

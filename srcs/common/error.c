@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_tools.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/15 23:06:40 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 14:00:52 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/09/15 23:09:16 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/09/23 20:10:43 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
-#include "libft.h"
+#include "common.h"
 
 /*
-** Initialize 1st stack by parsing program arguments
+** Prints msg and exit with code -1
 */
 
-int			init_stack(char **params, t_dlist **head)
+int				put_error(char *msg, int return_value)
 {
-	t_dlist	*tmp;
-	int		i;
-
-	i = 0;
-	while (params[i])
+	if (msg)
 	{
-		if (!(tmp = get_next_val_if_valid(params[i])))
-			return (-1);
-		ft_dlstadd(head, tmp);
-		i++;
+		if (PRINT_ERROR_MSG)
+			ft_putendl(msg);
+		else
+			ft_putendl("Error");
 	}
-	tmp->next = *head;
-	(*head)->prev = tmp;
-	return (0);
+	return (return_value);
 }
