@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 22:34:10 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:43:25 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct		s_stacks
 {
 	t_dlist			*head_a;
 	t_dlist			*head_b;
+	size_t			a_size;
+	size_t			b_size;
 }					t_stacks;
 
 typedef struct		s_inst

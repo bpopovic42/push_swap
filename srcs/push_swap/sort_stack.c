@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/23 16:19:25 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 17:55:25 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/27 19:07:46 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int		check_rotation(t_dlist *head)
 	return (index);
 }
 
-static int		is_under_median(t_dlist *head, int median)
+static int		is_over_median(t_dlist *head, int median)
 {
 	t_dlist		*ptr;
 
@@ -50,7 +50,7 @@ static int		is_under_median(t_dlist *head, int median)
 	ptr = head;
 	while (ptr)
 	{
-		if ((int)*((int*)ptr->content) > median)
+		if ((int)*((int*)ptr->content) < median)
 		{
 			head->prev->next = head;
 			return (0);
@@ -74,22 +74,29 @@ void	sort_stacks(t_stacks *stacks, t_list **inst, int median)
 {
 	int			i;
 	int			rotate;
+	char		*rotation_type;
 
-	(void)inst;
 	i = 0;
 	rotate = 0;
-	while (!is_under_median(stacks->head_a, median))
+	rotation_type = "ra";
+
+	while (!is_over_median(stacks->head_a, median))
 	{
-		if (!stacks->head_b && (rotate =check_rotation(stacks->head_a)))
+		if (!stacks->head_b && (rotate = check_rotation(stacks->head_a)))
 		{
+			if (rotate > (int)stacks->a_size / 2)
+			{
+				rotation_type = "rra";
+				rotate = (int)stacks->a_size - rotate;
+			}
 			while (rotate)
 			{
-				rec_exec_instruct("ra", inst, stacks);
+				rec_exec_instruct(rotation_type, inst, stacks);
 				rotate--;
 			}
 			break;
 		}
-		if ((int)*((int*)stacks->head_a->content) > median)
+		if ((int)*((int*)stacks->head_a->content) < median)
 			rec_exec_instruct("pb", inst, stacks);
 		else
 			rec_exec_instruct("ra", inst, stacks);
