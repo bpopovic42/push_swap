@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/23 16:15:02 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/10/02 18:32:04 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/02 21:37:51 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		get_median(t_dlist *head)
 	t_dlist		*ptr;
 
 	list_size = get_list_len(head);
-	half = list_size / 2;
+	half = list_size / 4;
 	ptr = head;
 	head->prev->next = NULL;
 	while (ptr && !is_median(head, (int)*((int*)ptr->content), half))

@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/23 16:19:25 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/10/02 19:19:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/02 21:38:23 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static void		push_b_highest(t_stacks *stacks, t_list **inst)
 		rec_exec_instruct_n("rrb", inst, stacks, pos);
 }
 
-static void		print_stack(t_dlist *head)
+/*static void		print_stack(t_dlist *head)
 {
 	t_dlist *ptr;
 
@@ -140,7 +140,7 @@ static void		print_stack(t_dlist *head)
 	else
 		ft_putstr("NULL");
 	ft_putchar('\n');
-}
+}*/
 
 static int		quicksort_b(t_list **inst, t_stacks *stacks, int n)
 {
@@ -169,9 +169,9 @@ static int		quicksort(t_list **inst, t_stacks *stacks, int n)
 		return (0);
 	while (i < n)
 	{
-		if (top >= (n / 2))
+		if (top >= (n / 4) && (top != 0))
 			break ;
-		if (*((int*)stacks->head_a->content) < median)
+		if (*((int*)stacks->head_a->content) <= median)
 		{
 			rec_exec_instruct("pb", inst, stacks);
 			if (*((int*)stacks->head_a->content) > *((int*)stacks->head_a->next->content))
