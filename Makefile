@@ -5,7 +5,7 @@ PUSH_SWAP	=	push_swap
 CC			=	gcc
 
 SRC_CHK		=	checker.c get_instructions.c get_flags.c debug.c \
-			execute_instructions.c check_if_sorted.c display.c
+			execute_instructions.c display.c check_if_sorted.c
 
 SRC_CMN		=	params_to_stack.c get_input.c swap.c \
 			push.c rotate.c reverse_rotate.c mem_tools.c error.c \
@@ -71,7 +71,7 @@ CMN_OBJ		=	$(addprefix $(ODIR)/, $(CMN_OBJS))
 
 OBJ			=	$(CHK_OBJ) $(PS_OBJ) $(CMN_OBJ)
 
-CFLAGS		=	$(DEBUG) -Wall -Wextra -Werror
+CFLAGS		=	$(DEBUG) $(if $(SILENT), , -Wall -Wextra -Werror)
 
 all			:	lib $(CHECKER) $(PUSH_SWAP)
 
