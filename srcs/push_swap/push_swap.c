@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 22:01:37 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/27 18:57:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/02 18:31:01 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,15 @@ int		main(int ac, char **av)
 {
 	t_stacks	stacks;
 	t_list		*instructions;
-	int			median;
 
 	instructions = NULL;
 	init_stacks_container(&stacks);
-	median = 0;
 	if (ac > 1)
 	{
 		if (get_input(ac - 1, av + 1, &(stacks.head_a)) < 0)
 			return (clean_exit("Bad input", &stacks, &instructions));
-		median = get_median(&stacks);
-		//ft_printf("Median = %d\n", median);
 		get_stack_sizes(&stacks);
-		//ft_printf("a = %d, b = %d\n", stacks.a_size, stacks.b_size);
-		sort_stacks(&stacks, &instructions, median);
+		sort_stacks(&stacks, &instructions);
 		print_instructions(instructions);
 		free_structures(&stacks, &instructions);
 	}

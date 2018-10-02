@@ -6,34 +6,11 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/23 16:15:02 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 16:20:53 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/02 18:32:04 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int		get_input_size(t_stacks *stacks)
-{
-	size_t	size;
-	t_dlist	*ptr;
-
-	size = 0;
-	if (stacks->head_a && stacks->head_a->next)
-	{
-		stacks->head_a->prev->next = NULL;
-		ptr = stacks->head_a;
-		while (ptr)
-		{
-			size++;
-			ptr = ptr->next;
-		}
-		stacks->head_a->prev->next = stacks->head_a;
-	}
-	else if (stacks->head_a)
-		return (1);
-	return (size);
-}
-
 
 static int		is_median(t_dlist *head, int value, size_t half)
 {
@@ -51,18 +28,46 @@ static int		is_median(t_dlist *head, int value, size_t half)
 	return (count == half);
 }
 
-int		get_median(t_stacks *stacks)
+int		get_list_len(t_dlist *head)
+{
+	t_dlist *ptr;
+	int i;
+
+	i = 0;
+	if (head)
+	{
+		if (head->prev)
+		{
+			head->prev->next = NULL;
+			ptr = head;
+			while (ptr)
+			{
+				ptr = ptr->next;
+				i++;
+			}
+			head->prev->next = head;
+		}
+		else
+			return (1);
+	}
+	return (i);
+}
+
+int		get_median(t_dlist *head)
 {
 	size_t		list_size;
 	size_t		half;
 	t_dlist		*ptr;
 
-	list_size = get_input_size(stacks);
-	half = list_size % 2 == 0 ? (list_size / 2) - 1 : list_size / 2;
-	ptr = stacks->head_a;
-	stacks->head_a->prev->next = NULL;
-	while (ptr && !is_median(stacks->head_a, (int)*((int*)ptr->content), half))
+	list_size = get_list_len(head);
+	half = list_size / 2;
+	ptr = head;
+	head->prev->next = NULL;
+	while (ptr && !is_median(head, (int)*((int*)ptr->content), half))
 		ptr = ptr->next;
-	stacks->head_a->prev->next = stacks->head_a;
-	return ((int)*((int*)ptr->content));
+	head->prev->next = head;
+//	if (ptr)
+		return ((int)*((int*)ptr->content));
+//	else
+//		return (*((int*)head->content));
 }
