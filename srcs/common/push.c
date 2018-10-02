@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 23:13:46 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 16:45:10 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/09/28 17:16:09 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ void	push_a(t_stacks *stacks)
 		tmp = ft_dlstpop(ptr);
 		ft_dlstpush(&(stacks->head_a), tmp);
 	}
+	if (stacks->head_b == tmp)
+		stacks->head_b = NULL;
+	else if (!stacks->head_a->prev)
+	{
+		stacks->head_a->prev = tmp;
+		tmp->next = stacks->head_a;
+	}
 }
 
 void	push_b(t_stacks *stacks)
@@ -48,5 +55,12 @@ void	push_b(t_stacks *stacks)
 			stacks->head_a = NULL;
 		tmp = ft_dlstpop(ptr);
 		ft_dlstpush(&(stacks->head_b), tmp);
+	}
+	if (stacks->head_a == tmp)
+		stacks->head_a = NULL;
+	else if (!stacks->head_b->prev)
+	{
+		stacks->head_b->prev = tmp;
+		tmp->next = stacks->head_b;
 	}
 }
