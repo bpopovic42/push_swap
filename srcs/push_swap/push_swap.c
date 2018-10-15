@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 22:01:37 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/10/02 18:31:01 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/15 14:41:05 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,68 @@ static int		clean_exit(char *msg, t_stacks *stacks, t_list **inst)
 	return (put_error(msg, -1));
 }
 
+static char		*instruction_optimizer(t_list **first, t_list *second)
+{
+	char *a;
+	char *b;
+
+	a = (char*)((t_inst*)(*first)->content)->name;
+	if (second)
+	{
+		b = (char*)((t_inst*)second->content)->name;
+		if (!ft_strcmp(a, "sa") && !ft_strcmp(b, "sb"))
+			return ("ss");
+		else if (!ft_strcmp(a, "sb") && !ft_strcmp(b, "sa"))
+			return ("ss");
+		else if (!ft_strcmp(a, "ra") && !ft_strcmp(b, "rb"))
+			return ("rr");
+		else if (!ft_strcmp(a, "rb") && !ft_strcmp(b, "ra"))
+			return ("rr");
+		else if (!ft_strcmp(a, "rra") && !ft_strcmp(b, "rrb"))
+			return ("rrr");
+		else if (!ft_strcmp(a, "rrb") && !ft_strcmp(b, "rra"))
+			return ("rrr");
+	}
+	return (NULL);
+}
+
 static void		print_instructions(t_list *inst)
 {
 	t_list		*ptr;
+	char		*optimized;
 
 	ptr = inst;
 	while (ptr)
 	{
-		ft_putstr((char*)((t_inst*)ptr->content)->name);
-		ft_putchar('\n');
+		optimized = instruction_optimizer(&ptr, ptr->next);
+		if (optimized)
+		{
+			ft_putendl(optimized);
+			ptr = ptr->next;
+		}
+		else
+			ft_putendl((char*)((t_inst*)ptr->content)->name);
 		ptr = ptr->next;
 	}
 }
 
-static void		get_stack_sizes(t_stacks *stacks)
+static int		get_stack_size(t_dlist *stack)
 {
 	t_dlist		*ptr;
+	int			size;
 
-	if (stacks->head_a && stacks->head_a->prev)
-		stacks->head_a->prev->next = NULL;
-	if (stacks->head_b && stacks->head_b->prev)
-		stacks->head_b->prev->next = NULL;
-	stacks->a_size = 0;
-	stacks->b_size = 0;
-	ptr = stacks->head_a;
-	while (ptr && stacks->head_a)
+	size = 0;
+	ptr = stack;
+	if (stack && stack->prev)
+		stack->prev->next = NULL;
+	while (ptr && stack)
 	{
 		ptr = ptr->next;
-		stacks->a_size++;
+		size++;
 	}
-	ptr = stacks->head_b;
-	while (ptr && stacks->head_b)
-	{
-		ptr = ptr->next;
-		stacks->b_size++;
-	}
-	if (stacks->head_a && stacks->head_a->prev)
-		stacks->head_a->prev->next = stacks->head_a;
-	if (stacks->head_b && stacks->head_b->prev)
-		stacks->head_b->prev->next = stacks->head_b;
+	if (stack && stack->prev)
+		stack->prev->next = stack;
+	return (size);
 }
 
 int		main(int ac, char **av)
@@ -75,7 +98,8 @@ int		main(int ac, char **av)
 	{
 		if (get_input(ac - 1, av + 1, &(stacks.head_a)) < 0)
 			return (clean_exit("Bad input", &stacks, &instructions));
-		get_stack_sizes(&stacks);
+		stacks.a_size = get_stack_size(stacks.head_a);
+		stacks.b_size = get_stack_size(stacks.head_b);
 		sort_stacks(&stacks, &instructions);
 		print_instructions(instructions);
 		free_structures(&stacks, &instructions);
