@@ -13,20 +13,20 @@
 #include "checker.h"
 #include "libft.h"
 
-void		reverse_rotate_a(t_stacks *stacks)
+void		reverse_rotate_a(t_stacks *stks)
 {
-	if (stacks->head_a && stacks->head_a->prev)
-		stacks->head_a = stacks->head_a->prev;
+	if (stks->a && stks->a->prev)
+		stks->a = stks->a->prev;
 }
 
-void		reverse_rotate_b(t_stacks *stacks)
+void		reverse_rotate_b(t_stacks *stks)
 {
-	if (stacks->head_b && stacks->head_b->prev)
-		stacks->head_b = stacks->head_b->prev;
+	if (stks->b && stks->b->prev)
+		stks->b = stks->b->prev;
 }
 
-void		reverse_rotate_ab(t_stacks *stacks)
+void		reverse_rotate_ab(t_stacks *stks)
 {
-	reverse_rotate_a(stacks);
-	reverse_rotate_b(stacks);
+	reverse_rotate_a(stks);
+	reverse_rotate_b(stks);
 }

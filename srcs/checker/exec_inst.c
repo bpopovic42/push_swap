@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   exec_inst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/21 16:30:16 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 16:33:05 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/09/18 19:05:19 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/10/19 18:19:42 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include "libft.h"
 
-void	rotate_a(t_stacks *stks)
+void	exec_inst(t_stacks *stks, t_list **inst, t_flags *flags)
 {
-	if (stks->a && stks->a->next)
-		stks->a = stks->a->next;
-}
+	t_list	*ptr;
 
-void	rotate_b(t_stacks *stks)
-{
-	if (stks->b && stks->b->next)
-		stks->b = stks->b->next;
-}
-
-void	rotate_ab(t_stacks *stks)
-{
-	rotate_a(stks);
-	rotate_b(stks);
+	ptr = *inst;
+	while (ptr)
+	{
+		(((t_inst*)ptr->content)->function(stks));
+		if (flags->visualizer)
+			display(stks, ((t_inst*)ptr->content)->name, flags->color);
+		ptr = ptr->next;
+	}
 }

@@ -13,54 +13,54 @@
 #include "checker.h"
 #include "libft.h"
 
-void	push_a(t_stacks *stacks)
+void	push_a(t_stacks *stks)
 {
 	t_dlist		*tmp;
 	t_dlist		*ptr;
 
 	tmp = NULL;
 	ptr = NULL;
-	if (stacks->head_b)
+	if (stks->b)
 	{
-		ptr = stacks->head_b;
-		if (stacks->head_b->next)
-			stacks->head_b = stacks->head_b->next;
+		ptr = stks->b;
+		if (stks->b->next)
+			stks->b = stks->b->next;
 		else
-			stacks->head_b = NULL;
+			stks->b = NULL;
 		tmp = ft_dlstpop(ptr);
-		ft_dlstpush(&(stacks->head_a), tmp);
+		ft_dlstpush(&(stks->a), tmp);
 	}
-	if (stacks->head_b == tmp)
-		stacks->head_b = NULL;
-	else if (!stacks->head_a->prev)
+	if (stks->b == tmp)
+		stks->b = NULL;
+	else if (!stks->a->prev)
 	{
-		stacks->head_a->prev = tmp;
-		tmp->next = stacks->head_a;
+		stks->a->prev = tmp;
+		tmp->next = stks->a;
 	}
 }
 
-void	push_b(t_stacks *stacks)
+void	push_b(t_stacks *stks)
 {
 	t_dlist		*tmp;
 	t_dlist		*ptr;
 
 	tmp = NULL;
 	ptr = NULL;
-	if (stacks->head_a)
+	if (stks->a)
 	{
-		ptr = stacks->head_a;
-		if (stacks->head_a->next)
-			stacks->head_a = stacks->head_a->next;
+		ptr = stks->a;
+		if (stks->a->next)
+			stks->a = stks->a->next;
 		else
-			stacks->head_a = NULL;
+			stks->a = NULL;
 		tmp = ft_dlstpop(ptr);
-		ft_dlstpush(&(stacks->head_b), tmp);
+		ft_dlstpush(&(stks->b), tmp);
 	}
-	if (stacks->head_a == tmp)
-		stacks->head_a = NULL;
-	else if (!stacks->head_b->prev)
+	if (stks->a == tmp)
+		stks->a = NULL;
+	else if (!stks->b->prev)
 	{
-		stacks->head_b->prev = tmp;
-		tmp->next = stacks->head_b;
+		stks->b->prev = tmp;
+		tmp->next = stks->b;
 	}
 }

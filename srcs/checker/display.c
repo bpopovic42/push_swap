@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:08:19 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 18:43:13 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/18 18:43:38 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Print content of a given stack
 */
 
-static void		print_stack(t_dlist *head)
+static void		display_stack(t_dlist *head)
 {
 	t_dlist		*stack;
 
@@ -26,27 +26,26 @@ static void		print_stack(t_dlist *head)
 		stack = head;
 		while (stack)
 		{
-			ft_putchar(' ');
-			ft_printf("%d", (*((int*)stack->content)));
+			ft_printf(" %d", get_val(stack));
 			stack = stack->next;
 			if (stack == head)
 				break ;
 		}
 	}
 	else
-		ft_putstr("(null)");
+		ft_putstr(" (null)");
 }
 
 /*
-** Prints instruction and value and resulting stacks state
+** Prints instruction and value and resulting stks state
 */
 
-void		display(t_stacks *stacks, char *instruction, int color)
+void			display(t_stacks *stks, char *instruction, int color)
 {
 	t_dlist		*ptr;
 	int			i;
 
-	ptr = stacks->head_a;
+	ptr = stks->a;
 	i = 0;
 	if (color)
 		ft_printf("{cyan}");
@@ -55,14 +54,14 @@ void		display(t_stacks *stacks, char *instruction, int color)
 	{
 		if (color)
 			ft_printf("{yellow}");
-		ft_printf("STACK %c =", (ptr == stacks->head_a ? 'A' : 'B'));
+		ft_printf("STACK %c =", (ptr == stks->a ? 'A' : 'B'));
 		if (color)
 			ft_printf("{green}");
-		print_stack(ptr);
+		display_stack(ptr);
 		ft_putchar('\n');
 		if (color)
 			ft_printf("{eoc}");
-		ptr = stacks->head_b;
+		ptr = stks->b;
 		i++;
 	}
 	ft_putchar('\n');

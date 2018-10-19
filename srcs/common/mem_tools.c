@@ -6,33 +6,33 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 22:48:35 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 20:05:11 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 18:11:13 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	del_stacks(t_stacks *stacks)
+void	del_stks(t_stacks *stks)
 {
-	if (stacks->head_a && stacks->head_a->prev)
-		stacks->head_a->prev->next = NULL;
-	ft_dlstdel(&(stacks->head_a), ft_bzero);
-	if (stacks->head_b && stacks->head_b->prev)
-		stacks->head_b->prev->next = NULL;
-	ft_dlstdel(&(stacks->head_b), ft_bzero);
+	if (stks->a && stks->a->prev)
+		stks->a->prev->next = NULL;
+	ft_dlstdel(&(stks->a), ft_bzero);
+	if (stks->b && stks->b->prev)
+		stks->b->prev->next = NULL;
+	ft_dlstdel(&(stks->b), ft_bzero);
 }
 
 /*
-** Null initializes stacks's containing structure
+** Null initializes stks's containing structure
 */
 
-void			init_stacks_container(t_stacks *container)
+void	init_stacks_container(t_stacks *container)
 {
-	container->head_a = NULL;
-	container->head_b = NULL;
+	container->a = NULL;
+	container->b = NULL;
 }
 
-void			del_instruction(void *inst, size_t size)
+void	del_instruction(void *inst, size_t size)
 {
 	ft_bzero((((t_inst*)inst)->name), ft_strlen(((t_inst*)inst)->name));
 	ft_strdel(&(((t_inst*)inst)->name));
@@ -41,11 +41,11 @@ void			del_instruction(void *inst, size_t size)
 }
 
 /*
-** Frees stacks from container and instructions list
+** Frees stks from container and instructions list
 */
 
-void			free_structures(t_stacks *stacks, t_list **inst)
+void	free_structures(t_stacks *stks, t_list **inst)
 {
 	ft_lstdel(inst, &del_instruction);
-	del_stacks(stacks);
+	del_stks(stks);
 }

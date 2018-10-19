@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 23:02:57 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 20:20:04 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 18:24:44 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				get_instructions(t_list **inst)
 		if (!fptr && (*inst || (fd = open(line, O_RDONLY)) < 0))
 			return (local_exit(NULL, &line, fd));
 		else if (fptr)
-			record_instruction(line, inst, fptr);
+			rec_inst(line, inst, fptr);
 		ft_strdel(&line);
 	}
 	local_free(&line, fd);

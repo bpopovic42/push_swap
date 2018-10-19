@@ -4,14 +4,15 @@ PUSH_SWAP	=	push_swap
 
 CC			=	gcc
 
-SRC_CHK		=	checker.c get_instructions.c get_flags.c debug.c \
-			execute_instructions.c display.c check_if_sorted.c
+SRC_CHK		=	checker.c get_instructions.c get_flags.c \
+			exec_inst.c display.c
 
-SRC_CMN		=	params_to_stack.c get_input.c swap.c \
-			push.c rotate.c reverse_rotate.c mem_tools.c error.c \
-			instruction_tools.c
+SRC_CMN		=	params_to_stack.c get_input.c swap.c push.c rotate.c \
+			reverse_rotate.c mem_tools.c error.c instruction_tools.c \
+			debug.c struct_tools.c is_sorted.c
 
-SRC_PS		=	push_swap.c get_median.c sort_stack.c
+SRC_PS		=	push_swap.c get_median.c rec_inst.c sorting_tools.c \
+			sort_a.c sort_b.c small_sort.c
 
 CHK			=	$(addprefix checker/, $(SRC_CHK))
 

@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/15 23:06:40 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 22:33:59 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 18:12:52 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Returns 1 if so, 0 otherwise
 */
 
-static int		is_only_digit(char *str)
+static int			is_only_digit(char *str)
 {
 	int		i;
 
@@ -86,7 +86,7 @@ static t_dlist		*strict_atoi(char *value)
 ** Returns 1 if duplicates have been found, 0 otherwise
 */
 
-static int		check_duplicates(t_dlist *list)
+static int			check_duplicates(t_dlist *list)
 {
 	t_dlist		*ptr;
 	int			current;
@@ -110,7 +110,7 @@ static int		check_duplicates(t_dlist *list)
 ** Initialize 1st stack by parsing program arguments
 */
 
-int			params_to_stack(char **params, t_dlist **head)
+int					params_to_stack(char **params, t_dlist **head)
 {
 	t_dlist	*tmp;
 	int		i;

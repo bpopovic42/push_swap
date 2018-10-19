@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 18:21:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 20:11:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 18:24:26 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Frees given structures, print error message if not NULL and return -1
 */
 
-static int		clean_exit(char *msg, t_stacks *stacks, t_list **inst)
+static int		clean_exit(char *msg, t_stacks *stks, t_list **inst)
 {
-	free_structures(stacks, inst);
+	free_structures(stks, inst);
 	return (put_error(msg, -1));
 }
 
@@ -30,28 +30,29 @@ static int		clean_exit(char *msg, t_stacks *stacks, t_list **inst)
 ** Returns -1 in case of error, 0 otherwise
 */
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
-	t_stacks	stacks;
+	t_stacks	stks;
 	t_flags		flags;
 	t_list		*instructions;
 	int			options;
 
 	instructions = NULL;
-	init_stacks_container(&stacks);
+	init_stacks_container(&stks);
 	options = 1;
 	if (ac > 1)
 	{
 		options += get_flags(ac, av, &flags);
-		if (get_input(ac - options, av + options, &(stacks.head_a)) < 0)
-			return (clean_exit("Bad input", &stacks, &instructions));
+		if (get_input(ac - options, av + options, &(stks.a)) < 0)
+			return (clean_exit("Bad input", &stks, &instructions));
 		if (get_instructions(&instructions) < 0)
-			return (clean_exit("Bad instruction", &stacks, &instructions));
-		execute_instructions(&stacks, &instructions, &flags);
-		check_if_sorted(&stacks);
-		free_structures(&stacks, &instructions);
+			return (clean_exit("Bad instruction", &stks, &instructions));
+		exec_inst(&stks, &instructions, &flags);
+		if (is_sorted(stks.a, 1) && !stks.b)
+			ft_putendl("OK");
+		else
+			ft_putendl("KO");
+		free_structures(&stks, &instructions);
 	}
-	else
-		put_error("No arguments provided", -1);
 	return (0);
 }

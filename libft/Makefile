@@ -6,7 +6,7 @@
 #    By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/03 08:42:00 by bopopovi          #+#    #+#              #
-#*   Updated: 2018/09/20 16:05:07 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2018/10/19 18:08:26 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,8 +71,8 @@ SRC_BIN		=	ft_toggle_bit.c ft_is_bit_set.c
 SRC_PTF		=	ft_printf.c ft_printf_buffer.c ft_printf_tools.c \
 			ft_printf_print_arg.c ft_printf_get_flags.c ft_vprintf.c \
 			ft_printf_type_int.c ft_printf_type_str.c ft_printf_type_char.c \
-			ft_printf_type_dbl.c ft_printf_type_others.c ft_printf_dtoa.c \
-			ft_printf_color.c
+			ft_printf_type_dbl.c ft_printf_type_ldbl.c ft_printf_type_others.c \
+			ft_printf_dtoa.c ft_printf_ldtoa.c ft_printf_color.c
 
 ############################## VAR #############################################
 
@@ -104,7 +104,7 @@ SDIR		=	./srcs
 
 ODIR		=	./objs
 
-LFTS		=	libft.h ft_printf.h get_next_line.h
+LFTS		=	libft.h ft_printf.h
 
 LFT			=	$(addprefix $(IDIR)/, $(LFTS))
 
@@ -122,7 +122,6 @@ $(NAME)		:	$(OBJ)
 			@ar rcs $(NAME) $(OBJ)
 			@$(CLR)
 			@echo $(UP) $(CUT) $(UP)
-			@if [ "$(DEBUG)" == "-g" ]; then echo $(UP) $(CUT) $(UP); fi;
 			@/bin/rm -f .cmp
 			@echo $(G)[$(B)LIBFT $(G)COMPILED]$(X)
 
@@ -182,6 +181,4 @@ MKODIR		=	if [ ! -d $(ODIR) ]; then \
 
 CMP			=	if [ ! -e .cmp ]; then \
 			echo $(Y)Compiling $(X)the $(B)Libft $(X)files...$(Y); \
-			if [ "$(DEBUG)" == "-g" ]; then \
-			echo \($(R)Debugging $(G)activated$(Y)\); fi; \
 			touch .cmp; fi

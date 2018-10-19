@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   struct_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/21 16:30:16 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 16:33:05 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/10/17 19:44:53 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/10/18 21:41:32 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
-#include "libft.h"
+#include "common.h"
 
-void	rotate_a(t_stacks *stks)
+int		get_val(t_dlist *head)
 {
-	if (stks->a && stks->a->next)
-		stks->a = stks->a->next;
+	return (*((int*)head->content));
 }
 
-void	rotate_b(t_stacks *stks)
+int		is_greater(t_dlist *a, t_dlist *b)
 {
-	if (stks->b && stks->b->next)
-		stks->b = stks->b->next;
+	return (get_val(a) > get_val(b));
 }
 
-void	rotate_ab(t_stacks *stks)
+int		is_smaller(t_dlist *a, t_dlist *b)
 {
-	rotate_a(stks);
-	rotate_b(stks);
+	return (get_val(a) < get_val(b));
+}
+
+int		is_equal(t_dlist *a, t_dlist *b)
+{
+	return (get_val(a) == get_val(b));
 }

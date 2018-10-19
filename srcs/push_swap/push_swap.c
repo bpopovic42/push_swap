@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/22 22:01:37 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/10/15 14:41:05 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 18:16:36 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 ** Frees given structures, print error message if not NULL and return -1
 */
 
-static int		clean_exit(char *msg, t_stacks *stacks, t_list **inst)
+static int		clean_exit(char *msg, t_stacks *stks, t_list **inst)
 {
-	free_structures(stacks, inst);
+	free_structures(stks, inst);
 	return (put_error(msg, -1));
 }
 
@@ -87,22 +87,29 @@ static int		get_stack_size(t_dlist *stack)
 	return (size);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
-	t_stacks	stacks;
-	t_list		*instructions;
+	t_stacks	stks;
+	t_list		*inst;
 
-	instructions = NULL;
-	init_stacks_container(&stacks);
+	inst = NULL;
+	init_stacks_container(&stks);
 	if (ac > 1)
 	{
-		if (get_input(ac - 1, av + 1, &(stacks.head_a)) < 0)
-			return (clean_exit("Bad input", &stacks, &instructions));
-		stacks.a_size = get_stack_size(stacks.head_a);
-		stacks.b_size = get_stack_size(stacks.head_b);
-		sort_stacks(&stacks, &instructions);
-		print_instructions(instructions);
-		free_structures(&stacks, &instructions);
+		if (get_input(ac - 1, av + 1, &(stks.a)) < 0)
+			return (clean_exit("Bad input", &stks, &inst));
+		stks.a_size = get_stack_size(stks.a);
+		stks.b_size = get_stack_size(stks.b);
+		if (!is_sorted(stks.a, 1))
+		{
+			if (!check_rotation(&inst, &stks))
+			{
+				sort_a(&inst, &stks);
+				sort_b(&inst, &stks);
+			}
+		}
+		print_instructions(inst);
+		free_structures(&stks, &inst);
 	}
 	return (0);
 }

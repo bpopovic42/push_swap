@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/23 11:07:23 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 11:14:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 18:05:58 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Check argc validity depending on the existence of command line options
 */
 
-static int	check_argc(int ac, char **av)
+static int		check_argc(int ac, char **av)
 {
 	if (ac > 1 && (!ft_strcmp(av[1], "-v") || !ft_strcmp(av[1], "-c")))
 	{
@@ -34,7 +34,6 @@ static int	check_argc(int ac, char **av)
 	return (0);
 }
 
-
 /*
 ** Set command line options flags from argv
 */
@@ -45,8 +44,10 @@ static void		get_options(int ac, char **av, t_flags *flags)
 	{
 		if (ac > 2)
 		{
-			flags->visualizer = (!(ft_strcmp(av[1], "-v")) || !(ft_strcmp(av[2], "-v")));
-			flags->color = (!ft_strcmp(av[1], "-c") || !ft_strcmp(av[2], "-c"));
+			if (!ft_strcmp(av[1], "-v") || !ft_strcmp(av[2], "-v"))
+				flags->visualizer = 1;
+			if (!ft_strcmp(av[1], "-c") || !ft_strcmp(av[2], "-c"))
+				flags->color = 1;
 		}
 		else if (ac == 2)
 		{

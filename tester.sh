@@ -6,7 +6,7 @@
 #    By: lmazeaud <lmazeaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/26 18:08:32 by aroulin           #+#    #+#              #
-#    Updated: 2018/09/28 18:44:33 by bopopovi         ###   ########.fr        #
+#    Updated: 2018/10/18 22:27:02 by bopopovi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,17 @@ echo "\x1B[36m";
 echo "\n--- [ ANALYSING PUSH_SWAP] ---";
 echo "\x1B[0m";
 
-read -p "How many range of number [from ... to] (2 number needed) : " NBRBOT NBRTOP
-read -p "How many loop : " TRY
-read -p "Mediane for test : " MED
+if [ "$#" -ne 4 ]; then
+	read -p "How many range of number [from ... to] (2 number needed) : " NBRBOT NBRTOP
+	read -p "How many loop : " TRY
+	read -p "Mediane for test : " MED
+else
+	let NBRBOT=$1
+	let NBRTOP=$2
+	let TRY=$3
+	let MED=$4
+fi
+
 NBR=$(($NBRTOP - $NBRBOT))
 ((NBR++))
 MOY=0;
@@ -50,13 +58,14 @@ do
 	ARG=`ruby -e "puts ($NBRBOT..$NBRTOP).to_a.shuffle.join(' ')"`
 	printf "ARG = [ $ARG ]\n"
 	NBRCOUP=$(./push_swap $ARG | wc -l);
-	TEST=$(./push_swap $ARG | ./checker $ARG);
+	TEST=`./push_swap $ARG | ./checker $ARG`
 	if [ $TEST = "OK" ]
 	then
 		printf "\033[0;32m▓\033[0;0m"
 		WELL=$(( $WELL + 1 ));
 	else
 		printf "\033[0;31m▓\033[0;0m"
+		printf "$TEST"
 	fi;
 
 	if [ $MAX -lt $NBRCOUP ]

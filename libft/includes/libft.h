@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 16:27:54 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/21 13:50:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 17:57:15 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 typedef unsigned int	t_uint;
 typedef unsigned char	t_uchar;
+typedef long double		t_ldbl;
 
 typedef struct		s_list
 {
@@ -47,7 +48,7 @@ typedef struct		s_hash
 	struct s_hash	*next;
 }					t_hash;
 
-typedef union		u_dbl
+typedef union		u_udbl
 {
 	double			val;
 	struct
@@ -56,7 +57,18 @@ typedef union		u_dbl
 		t_uint		expn: 11;
 		t_uint		sign: 1;
 	}				bits;
-}					t_dbl;
+}					t_udbl;
+
+typedef union		u_uldbl
+{
+	long double		val;
+	struct
+	{
+		size_t		mant: 52;
+		t_uint		expn: 11;
+		t_uint		sign: 1;
+	}				bits;
+}					t_uldbl;
 
 /*
 ** IO FUNCTIONS
@@ -131,7 +143,6 @@ char				*ft_strnstr(const char *src, const char *find, size_t len);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
-long				ft_atol(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -170,6 +181,7 @@ size_t				ft_wcslen(wchar_t *wcs);
 size_t				ft_wcsnlen(wchar_t *wcs, size_t n);
 int					ft_ccat(char *dst, char app);
 char				*ft_strtoupper(char *str);
+long				ft_atol(const char *str);
 
 /*
 ** HASH FUNCTIONS

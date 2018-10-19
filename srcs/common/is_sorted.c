@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_instructions.c                             :+:      :+:    :+:   */
+/*   is_sorted.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/18 19:05:19 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/09/23 18:33:56 by bopopovi         ###   ########.fr       */
+/*   Created: 2018/09/22 10:35:51 by bopopovi          #+#    #+#             */
+/*   Updated: 2018/10/18 19:33:49 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
-#include "libft.h"
+#include "common.h"
 
-int		execute_instructions(t_stacks *stacks, t_list **inst, t_flags *flags)
+int		is_sorted(t_dlist *head, int ascending)
 {
-	(void)flags;
-	t_list	*ptr;
-	ptr = *inst;
-	while (ptr)
+	t_dlist		*ptr;
+
+	if (head)
 	{
-		(((t_inst*)ptr->content)->function(stacks));
-		if (flags->visualizer)
-			display(stacks, ((t_inst*)ptr->content)->name, flags->color);
-		ptr = ptr->next;
+		if (!head->prev)
+			return (1);
+		ptr = head->next;
+		while (ptr != head)
+		{
+			if (is_smaller(ptr->prev, ptr) && !ascending)
+				return (0);
+			else if (!is_smaller(ptr->prev, ptr) && ascending)
+				return (0);
+			ptr = ptr->next;
+		}
 	}
-	return (0);
+	return (1);
 }
