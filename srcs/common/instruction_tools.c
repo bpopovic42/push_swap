@@ -6,13 +6,13 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/23 17:41:23 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/10/19 18:38:18 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 19:36:13 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	(*is_instruction(char *instruction))(t_stacks*)
+void	*is_instruction(char *instruction)
 {
 	if (!ft_strcmp("sa", instruction))
 		return (&swap_a);

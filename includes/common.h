@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 17:25:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2018/10/19 18:41:57 by bopopovi         ###   ########.fr       */
+/*   Updated: 2018/10/19 19:36:19 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			reverse_rotate_ab(t_stacks *stks);
 */
 
 void			rec_inst(char *name, t_list **inst, void (*val)(t_stacks*));
-void			(*is_instruction(char *instruction))(t_stacks*);
+void			*is_instruction(char *instruction);
 
 /*
 ** COMPARISON TOOLS
