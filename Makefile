@@ -2,11 +2,7 @@ CHECKER		=	checker
 
 PUSH_SWAP	=	push_swap
 
-CC			=	gcc
-
 # DIRECTORIES
-
-LIBS		=	libft.a
 
 CHKDIR		=	checker
 
@@ -58,7 +54,11 @@ OBJ			=	$(CHK_OBJ) $(PS_OBJ) $(CMN_OBJ)
 
 # INCLUDES & LIBRARIES
 
-LIB			=	$(addprefix $(LFTDIR)/, $(LIBS))
+LFT			=	$(addprefix $(LFTDIR)/, libft.a)
+
+LFT_INC_DIR	=	$(addprefix $(LFTDIR)/, $(IDIR))
+
+LFT_INC		=	$(addprefix $(LFTDIR)/, $(IDIR)/libft.h)
 
 PS_INC		=	$(addprefix $(IDIR)/, push_swap.h)
 
@@ -66,28 +66,29 @@ CMN_INC		=	$(addprefix $(IDIR)/, common.h)
 
 CHK_INC		=	$(addprefix $(IDIR)/, checker.h)
 
-HEADERS		=	$(CHK_INC) $(CMN_INC) $(PS_INC)
+HEADERS		=	$(CHK_INC) $(CMN_INC) $(PS_INC) $(LFT_INC)
 
-LFT			=	$(addprefix -I,$(LFTDIR)/$(IDIR))
+#LFT			=	$(addprefix -I,$(LFTDIR)/$(IDIR))
 
-INCS		=	$(addprefix -I,$(IDIR)) $(LFT)
+INCS		=	$(addprefix -I,$(IDIR) $(LFT_INC_DIR))
 
-# FLAGS
+# COMPILER OPTIONS
+
+CC			=	gcc
 
 CFLAGS		=	$(DEBUG) $(if $(SILENT), , -Wall -Wextra -Werror)
 
 # COMPILATION RULES
 
 all			:	$(CHECKER) $(PUSH_SWAP)
-			@$(IF_CMP)
 
-$(CHECKER)	:	$(LIB) $(CMN_OBJ) $(CMN_INC) $(CHK_OBJ) $(CHK_INC)
-			@$(CC) $(CFLAGS) -o $(CHECKER) $(CMN_OBJ) $(CHK_OBJ) $(LIB) $(INCS)
+$(CHECKER)	:	$(LFT) $(CMN_OBJ) $(CMN_INC) $(CHK_OBJ) $(CHK_INC)
+			@$(CC) $(CFLAGS) -o $(CHECKER) $(CMN_OBJ) $(CHK_OBJ) $(LFT) $(INCS)
 			@$(IF_CMP)
 			@echo $(G)[$(B)CHECKER $(G)COMPILED]$(X)
 
-$(PUSH_SWAP):	$(LIB) $(CMN_OBJ) $(CMN_INC) $(PS_OBJ)
-			@$(CC) $(CFLAGS) -o $(PUSH_SWAP) $(CMN_OBJ) $(PS_OBJ) $(LIB) $(INCS)
+$(PUSH_SWAP):	$(LFT) $(CMN_OBJ) $(CMN_INC) $(PS_OBJ)
+			@$(CC) $(CFLAGS) -o $(PUSH_SWAP) $(CMN_OBJ) $(PS_OBJ) $(LFT) $(INCS)
 			@$(IF_CMP)
 			@echo $(G)[$(B)PUSH_SWAP $(G)COMPILED]$(X)
 
@@ -98,8 +99,8 @@ $(ODIR)/%.o	:	$(SDIR)/%.c $(HEADERS)
 			@$(CLR)
 			@echo -n $@
 
-$(LIB)		:
-	@$(MAKE) DEBUG="$(DEBUG)" -C $(LFTDIR)
+$(LFT)		:
+		@$(MAKE) DEBUG="$(DEBUG)" -C $(LFTDIR)
 
 clean		:
 	@$(MAKE) clean -C $(LFTDIR)
@@ -108,7 +109,7 @@ clean		:
 	@echo $(G)[$(B)PUSH_SWAP $(G)CLEANED]$(X)
 
 fclean		:	clean
-	@/bin/rm -f $(LIB)
+	@/bin/rm -f $(LFT)
 	@/bin/rm -f $(CHECKER) $(PUSH_SWAP)
 
 re			:	fclean all
