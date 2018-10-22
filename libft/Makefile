@@ -6,7 +6,7 @@
 #    By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/03 08:42:00 by bopopovi          #+#    #+#              #
-#*   Updated: 2018/10/22 17:13:09 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2018/10/22 18:29:15 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,25 +14,25 @@ NAME		=	libft.a
 
 ############################## DIRS ############################################
 
-IDIR		=	./includes
+IDIR		=	includes
 
-SDIR		=	./srcs
+SDIR		=	srcs
 
-ODIR		=	./objs
+ODIR		=	objs
 
-IODIR		=	./ft_io
+IODIR		=	ft_io
 
-LSTDIR		=	./ft_lst
+LSTDIR		=	ft_lst
 
-MEMDIR		=	./ft_mem
+MEMDIR		=	ft_mem
 
-STRDIR		=	./ft_str
+STRDIR		=	ft_str
 
-HASHDIR		=	./ft_hash
+HASHDIR		=	ft_hash
 
-BINDIR		=	./ft_bin
+BINDIR		=	ft_bin
 
-PTFDIR		=	./ft_printf
+PTFDIR		=	ft_printf
 
 ############################## SRCS ############################################
 
